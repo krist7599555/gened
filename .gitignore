@@ -1,0 +1,11 @@
+backend/node_modules/**
+frontend/node_modules/**
+.DS_Store
+backend/dist/**
+backend/dist
+frontend/dist
+frontend/dist/**
+backend/.DS_Store
+frontend/.DS_Store
+
+backend/src/config.ts
