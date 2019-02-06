@@ -1,0 +1,31 @@
+import axios from "axios";
+import { sso } from "@config/index";
+
+export default function auth2ticket(
+  username: string,
+  password: string
+): Promise<string> {
+  return axios({
+    method: "GET",
+    url: sso.url + "/login",
+    headers: {
+      Accept: "application/json, text/javascript, */*; q=0.01",
+      "Accept-Language": "en,da;q=0.9",
+      "Cache-Control": "no-cache",
+      Pragma: "no-cache",
+      "x-requested-with": "XMLHttpRequest"
+    },
+    withCredentials: true,
+    params: {
+      username: username.slice(0, 8),
+      password: password,
+      service: "https://account.it.chula.ac.th",
+      serviceName: "Chula+SSO"
+    }
+  })
+    .then(res => res.data)
+    .then(res => {
+      if (res.type == "error") throw res.content;
+      return res.ticket;
+    });
+}

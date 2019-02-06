@@ -17,10 +17,10 @@ export const sectionDetailSchema = new mongoose.Schema(
 );
 export const courseDetailSchema = new mongoose.Schema(
   {
-    courseId: String,
+    course: String,
     yeartime: String,
     group: String,
-    course: {
+    courseName: {
       id: String,
       nameSHORT: String,
       nameTHAI: String,
@@ -39,11 +39,9 @@ export const courseDetailSchema = new mongoose.Schema(
     },
     schedule: {
       table: [[String]],
-      record: {
-        type: Map,
-        of: [sectionDetailSchema]
-      }
-    }
+      record: Object
+    },
+    tags: Object
   },
   { strict: false }
 );
@@ -58,10 +56,12 @@ export const courseLittleSchema = new mongoose.Schema(
   },
   { strict: false }
 );
-export const genedListSchema = new mongoose.Schema(
+
+export const courseListSchema = new mongoose.Schema(
   {
-    cluster: String,
-    list: [courseLittleSchema]
+    code: String,
+    name: String,
+    list: [String]
   },
   { strict: false }
 );

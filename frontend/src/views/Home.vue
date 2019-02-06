@@ -1,59 +1,52 @@
 <template lang="pug">
-#home.columns(style='overflow: hidden')
+#home.columns.is-clipped
   .column.is-1(style='min-width: 340px')
     div#sidebar
       SideBar
   .column.section.hero.is-fullheight
-    //- b-table(:data='[]')
-    //-     template(slot-scope='props')
-    //-       b-table-column(field='row3', label='ชื่อ' width='200') 1
-    //-       b-table-column(field='row2', label='หมวด') 2
-           
-    .tile.is-ancestor
-      .tile.is-vertical
-        .tile.is-parent
-          .tile.is-child 
-            .monospace#topOfTable(style='display: flex; justify-content: center;'): .box
+    .monospace#topOfTable.is-flex(style='justify-content: center')
+      .box
+        b-table(
+          :loading="loading"
+          :data="GENEDFILTER || []"
+          detailed
+          paginated
+          per-page="40"
+          detail-key="course"
+          icon-pack='fas'
+          :striped='true'
+          :opened-detailed="openedDetails"
+          @details-open="(row, idx) => $toast.open(row.course + ' ' + row.courseName.nameENG)"
+          @page-change="$scrollTo('#topOfTable', 500, { offset: -90 })"
+          @click='toggleDetail'
+        )
 
-              b-table(
-                :loading="loading"
-                :data="GENEDFILTER || []"
-                detailed
-                paginated
-                per-page="40"
-                detail-key="courseId"
-                icon-pack='fas'
-                :striped='true'
-                :opened-detailed="openedDetails"
-                @details-open="(row, idx) => $toast.open(row.courseId + ' ' + row.courseName)"
-                @page-change="$scrollTo('#topOfTable', 500, { offset: -90 })"
-                @click='toggleDetail'
-              )
+          template(slot-scope='props')
+            //- b-table-column(field='row3', label='ชื่อ' width='200') {{ props.row }}
+            b-table-column(field='row3', label='ชื่อ' width='200'): span(v-html='getCourseName(props.row.courseName)')
+            b-table-column(field='row2', label='หมวด'): span(v-html='getCourseKind(props.row.tags)')
       
-                template(slot-scope='props')
-                  b-table-column(field='row3', label='ชื่อ' width='200') {{ props.row.courseName }}
-                  b-table-column(field='row2', label='หมวด') {{ GENED[props.row.cluster].en }}
-           
-                  b-table-column(field='row3', label='รหัส') {{ props.row.courseId }}
-                  b-table-column(field='row3', label='เวลา') 
+            b-table-column(field='row3', label='รหัส') {{ props.row.course }}
+            b-table-column(field='row3', label='เวลา') 
 
-                    table.table.inner-table.is-mobile.is-narrow.is-hoverable(:mobile-cards='false'): tbody.has-text-right
-                      template(v-for='($room, $idx2) in props.row.detail.schedule' style='font-family: monospace') 
-                        tr(v-for='$info in $room' v-show='$info.วันเรียน != "IA"')
-                          td.has-text-right(style='min-width: 36px; width: 36px') {{$room[0].ตอนเรียน}}
-                          td.has-text-right.is-inversed(style='min-width: 75px; width: 75px'): RegNumber(:value='$info')
-                          //- td.has-text-right(style='min-width: 75px; width: 75px') {{$info.จำนวนนิสิต}} 
-                          td.has-text-right(style='min-width: 38px; width: 38px') {{$info.วันเรียน}} 
-                          td.has-text-right(style='min-width: 60px; width: 60px') {{$info.เวลาเริ่ม}}
-                          td.has-text-right(style='min-width: 60px; width: 60px') {{$info.เวลาจบ}}
-                          td.has-text-right(style='min-width: 75px; width: 75px; font-size: 0.6rem') **{{$info.หมายเหตุ}}
-   
-                template(slot='detail', slot-scope='props')
-                  .container(style='max-width: 600px; justify-content: center; display: flex; padding-bottom: 50px; padding-top: 30px;')
-                    CourseCard(:info='props.row' :courseId='props.row.courseId')
-                    
-    //-     figure.image.box(style='width: 60px; margin: 0; padding: 4px 15px; margin-left: 20px; margin-bottom: -25px;')
-    //-       //- img(:src="'https://www.reliablecounter.com/count.php?page=gened.ml&digit=style/plain/10/&reloads=1' + '&t=' + new Date().getTime()", alt='', border='0')
+              table.table.inner-table.is-mobile.is-narrow.is-hoverable(:mobile-cards='false')
+                tbody.has-text-right
+                  template(v-for='($room, $idx2) in props.row.schedule' style='font-family: monospace') 
+                    tr(v-for='$info in $room' v-show='$info.วันเรียน != "IA"')
+                      td.has-text-right(style='min-width: 36px; width: 36px') {{$room[0].ตอนเรียน}}
+                      td.has-text-right.is-inversed(style='min-width: 75px; width: 75px'): RegNumber(:value='$info')
+                      //- td.has-text-right(style='min-width: 75px; width: 75px') {{$info.จำนวนนิสิต}} 
+                      td.has-text-right(style='min-width: 38px; width: 38px') {{$info.วันเรียน}} 
+                      td.has-text-right(style='min-width: 60px; width: 60px') {{$info.เวลาเริ่ม}}
+                      td.has-text-right(style='min-width: 60px; width: 60px') {{$info.เวลาจบ}}
+                      td.has-text-right(style='min-width: 75px; width: 75px; font-size: 0.6rem') **{{$info.หมายเหตุ}}
+
+          template(slot='detail', slot-scope='props')
+            .container(style='max-width: 600px; justify-content: center; display: flex; padding-bottom: 50px; padding-top: 30px;')
+              CourseCard(:info='props.row' :course='props.row.course')
+              
+  //-     figure.image.box(style='width: 60px; margin: 0; padding: 4px 15px; margin-left: 20px; margin-bottom: -25px;')
+  //-       //- img(:src="'https://www.reliablecounter.com/count.php?page=gened.ml&digit=style/plain/10/&reloads=1' + '&t=' + new Date().getTime()", alt='', border='0')
 </template>
 
 <script lang="ts">
@@ -65,8 +58,11 @@ import _ from "lodash";
 import WeekSelect from "../components/WeekSelect.vue";
 import CourseCard from "../components/CourseCard.vue";
 import MemoiTextArea from "../components/MemoiTextArea.vue";
-import SideBar from "./setting/Sidebar.vue";
+import SideBar from "./Sidebar.vue";
 import RegNumber from "../components/RegNumber.vue";
+
+import * as constant from "../constant/index";
+
 @Component({
   components: {
     WeekSelect,
@@ -78,7 +74,7 @@ import RegNumber from "../components/RegNumber.vue";
 })
 // @ts-ignore
 export default class Home extends Vue {
-  GENED = require("../const.ts").GENED;
+  GENED = constant.GENED;
   openedDetails: string[] = [];
   loading = true;
   // @ts-ignore
@@ -86,11 +82,11 @@ export default class Home extends Vue {
   // @ts-ignore
   @Action("search/reloadGened") reloadGened: any;
   // @ts-ignore
-  @Getter("search/GENEDFILTER") GENEDFILTER: any;
+  @Getter("search/GENEDFILTER") GENEDFILTER: any[];
 
   toggleDetail(e: any) {
-    if (e.courseId) {
-      this.openedDetails = _.xor(this.openedDetails, [e.courseId]);
+    if (e.course) {
+      this.openedDetails = _.xor(this.openedDetails, [e.course]);
     }
   }
 
@@ -105,6 +101,19 @@ export default class Home extends Vue {
     if (avail <= 5) return "has-text-warning";
     if (info.ลงทะเบียน == 0) return "has-text-success";
     return "has-text-success";
+  }
+  getCourseName(cname) {
+    const { nameSHORT, nameTHAI, nameENG } = cname;
+    return nameSHORT;
+    // return `${nameSHORT}<br/>${nameTHAI}<br/>${nameENG}`;
+  }
+  getCourseKind(tags) {
+    try {
+      const { code, english, name, short } = tags.gened;
+      return `${short} (${english})`;
+    } catch (e) {
+      return "none";
+    }
   }
 }
 </script>

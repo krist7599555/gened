@@ -16,6 +16,7 @@ library.add(fas, far, fab);
 dom.watch();
 
 import Buefy from "buefy";
+// Vue.use(Buefy);
 Vue.use(Buefy, { defaultIconPack: "fas" });
 import "buefy/src/scss/buefy-build.scss";
 import "bulma/bulma.sass";

@@ -2,12 +2,22 @@
   "compilerOptions": {
     "module": "none",
     "target": "esnext",
-    "outDir": "dist",
+    "outDir": "./dist",
     "rootDir": "./",
     "sourceMap": true,
     "lib": ["es2017", "es2015.promise", "es2018.promise", "dom"],
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "baseUrl": "./src",
+    "paths": {
+      "@util/*": ["util/*"],
+      "@db/*": ["db/*"],
+      "@scaping/*": ["scaping/*"],
+      "@auth/*": ["auth/*"],
+      "@config/*": ["config/*"],
+      "@regchula/*": ["regchula/*"]
+    }
   },
   "include": ["index.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "moduleResolution": "node"
 }

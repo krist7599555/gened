@@ -1,6 +1,6 @@
 <template lang="pug">
 .course 
-  CourseCard(:courseId='courseId')
+  CourseCard(:course='course')
 </template>
 
 <script lang="ts">
@@ -16,8 +16,8 @@ import _ from "lodash";
 })
 // @ts-ignore
 export default class Home extends Vue {
-  get courseId() {
-    return this.$route.params.courseId;
+  get course() {
+    return this.$route.params.course;
   }
 }
 </script>

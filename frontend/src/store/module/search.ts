@@ -1,10 +1,10 @@
 import axios from "axios";
 import week from "./week";
 import _ from "lodash";
-export const backend = "https://gened.ml/api";
-// export const backend = "http://127.0.0.1:3124/api";
-import { genedData, genedSection } from "../../views/type";
-import { GENED as genedConvert } from "./../../const";
+import { api } from "@/config/index";
+
+import { genedData, genedSection } from "@/views/type";
+import { GENED as genedConvert } from "@/constant/index";
 
 export default {
   namespaced: true,
@@ -32,8 +32,8 @@ export default {
       return (
         state.GENED &&
         _.chain(state.GENED)
-          .filter(({ cluster }) => {
-            return _.includes(state.search.kind, genedConvert[cluster].en);
+          .filter(({ tags }) => {
+            return _.includes(state.search.kind, tags.gened.english);
           })
           .filter(row => {
             const data = JSON.stringify(row).toLowerCase();
@@ -43,7 +43,7 @@ export default {
           .reduce((res: any[], obj) => {
             // filter day
             const validsection = _.reduce(
-              _.entries(obj.detail.schedule),
+              _.entries(obj.schedule.record),
               (obj: any, [section, rooms]: any) => {
                 if (getters.filterByWeekSection(rooms)) {
                   obj[section] = rooms;
@@ -51,9 +51,8 @@ export default {
                     obj[section] = obj[section].filter(getters.filterSureGened);
                   }
                   if (!state.search.showFullCourse) {
-                    obj[section] = obj[section].filter(
-                      getters.filterAvailSeatSection
-                    );
+                    // eslint-disable-next-line
+                    obj[section] = obj[section].filter(getters.filterAvailSeatSection);
                   }
                   if (_.isEmpty(obj[section])) {
                     delete obj[section];
@@ -66,10 +65,9 @@ export default {
 
             if (!_.isEmpty(validsection)) {
               let afterfilter = { ...obj };
-              afterfilter.detail.schedule = validsection;
+              afterfilter.schedule = validsection;
               res.push(afterfilter);
             }
-            // obj.detail.schedule = validsection;
             return res;
           }, [])
           .value()
@@ -112,7 +110,7 @@ export default {
   actions: {
     async reloadGened(store, force) {
       return axios
-        .get(backend + "/scape/gened/12345" + (force ? "&force=true" : ""))
+        .get(`${api}/scape/course?q=1+2+3+4+5${force ? "&force=true" : ""}`)
         .then(res => res.data)
         .then(res => res.list)
         .then(gened => {
@@ -121,7 +119,7 @@ export default {
         });
     },
     async getCourse(_, code) {
-      return axios.get(backend + "/scape/course/" + code).then(res => res.data);
+      return axios.get(`${api}/scape/course?q=${code}`).then(res => res.data.list[0]);
     }
   }
 };
