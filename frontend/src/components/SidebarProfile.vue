@@ -12,6 +12,7 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { State, Getter, Action, Mutation, namespace } from "vuex-class";
 import cookie from "cookiejs";
+import { setInterval } from "timers";
 
 // @ts-ignore
 @Component()

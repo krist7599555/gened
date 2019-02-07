@@ -25,7 +25,12 @@ export default [
       const json = await auth2all(username, password);
       return res.status(200).send(_.assign({ ticket }, json));
     } catch (e) {
-      return res.status(400).send(e);
+      try {
+        return res.status(400).send(e);
+      } catch (e1) {
+        console.error(e);
+        return res.status(400).send("error");
+      }
     }
   }
 ];

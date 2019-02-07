@@ -13,7 +13,7 @@ export const sectionDetailSchema = new mongoose.Schema(
     เวลาเริ่ม: String,
     เวลาจบ: String
   },
-  { strict: false }
+  { strict: false, versionKey: false }
 );
 export const courseDetailSchema = new mongoose.Schema(
   {
@@ -43,7 +43,7 @@ export const courseDetailSchema = new mongoose.Schema(
     },
     tags: Object
   },
-  { strict: false }
+  { strict: false, versionKey: false }
 );
 
 export const courseLittleSchema = new mongoose.Schema(
@@ -54,7 +54,7 @@ export const courseLittleSchema = new mongoose.Schema(
     courseName: String,
     dateil: mongoose.Schema.Types.Mixed
   },
-  { strict: false }
+  { strict: false, versionKey: false }
 );
 
 export const courseListSchema = new mongoose.Schema(
@@ -63,7 +63,7 @@ export const courseListSchema = new mongoose.Schema(
     name: String,
     list: [String]
   },
-  { strict: false }
+  { strict: false, versionKey: false }
 );
 
 export const usersSchema = new mongoose.Schema(
@@ -72,5 +72,5 @@ export const usersSchema = new mongoose.Schema(
     name: String,
     faculty: String
   },
-  { strict: false }
+  { strict: false, versionKey: false }
 );

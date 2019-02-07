@@ -47,9 +47,7 @@ export default class SidebarLogin extends Vue {
     }
   }
   focus(rf) {
-    console.log(rf);
     if (this.$refs && rf in this.$refs) {
-      console.log(">>>");
       let input = null as HTMLInputElement | HTMLButtonElement | null;
       for (let tag of ["input", "button"]) {
         if (!input) {
@@ -93,7 +91,6 @@ export default class SidebarLogin extends Vue {
           this.responseMessage = err;
         })
         .finally(() => (this.inprocess = false));
-      console.log(this.username, this.password);
     }
   }
 }

@@ -48,6 +48,7 @@
     "qs": "^6.6.0",
     "request": "^2.88.0",
     "shelljs": "^0.8.3",
+    "simple-crypto-js": "^2.0.2",
     "ssl-root-cas": "^1.2.5",
     "superagent": "^4.1.0",
     "tesseract.js": "^1.0.14",

@@ -2,14 +2,14 @@ import { Request, Response } from "express";
 import { cookie, param } from "express-validator/check";
 import assert from "./middleware/assertValidator";
 
-import ticket2raw from "./function/ticket2raw";
+import ticket2user from "./function/ticket2user";
 import { users } from "@db/index";
 
 export const root = [
   cookie("ticket").exists(),
   assert(401),
   async function(req: Request, res: Response) {
-    res.status(200).send(await ticket2raw(req.cookies.ticket));
+    res.status(200).send(await ticket2user(req.cookies.ticket));
   }
 ];
 

@@ -1148,6 +1148,10 @@ cors@^2.8.5:
     object-assign "^4"
     vary "^1"
 
+crypto-js@^3.1.9-1:
+  version "3.1.9-1"
+  resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-3.1.9-1.tgz#fda19e761fc077e01ffbfdc6e9fdfc59e8806cd8"
+
 css-select@~1.2.0:
   version "1.2.0"
   resolved "http://registry.npmjs.org/css-select/-/css-select-1.2.0.tgz#2b3a110539c5355f1cd8d314623e870b121ec858"
@@ -2889,6 +2893,12 @@ shelljs@^0.8.3:
 signal-exit@^3.0.0:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
+
+simple-crypto-js@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/simple-crypto-js/-/simple-crypto-js-2.0.2.tgz#8075fe0ffa984f70027dd3e148a240f2603732c9"
+  dependencies:
+    crypto-js "^3.1.9-1"
 
 slash@^1.0.0:
   version "1.0.0"

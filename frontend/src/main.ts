@@ -23,8 +23,12 @@ import "bulma/bulma.sass";
 
 Vue.config.productionTip = false;
 
-new Vue({
+const vm = new Vue({
   router,
   store,
   render: h => h(App)
 }).$mount("#app");
+
+(async function() {
+  vm.$store.dispatch("auth/getUserInfo");
+})();

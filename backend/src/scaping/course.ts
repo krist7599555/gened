@@ -6,7 +6,7 @@ import getcourse from "./function/getcourse";
 import { query } from "express-validator/check";
 import assertValidate from "@auth/sso/middleware/assertValidator";
 
-import { course as db_course, courselist as db_courselist } from "@db/index";
+import * as db from "@db/index";
 
 const message: string = `\\d{1} for gened,
 \\d{2} for faculty,
@@ -35,10 +35,10 @@ export default [
           _.map(codes, async (code: string) => {
             if (code.length == 7) return [code];
             if (code.length <= 2) {
-              const doc = await db_courselist.findOne({ code });
+              const doc = await db.courselist.findOne({ code });
               const lis_nw = !force && doc ? doc.toObject() : await getlist(cookies, code);
               clusters.push(lis_nw);
-              await db_courselist.updateOne({ code }, lis_nw, { upsert: true, strict: false });
+              await db.courselist.updateOne({ code }, lis_nw, { upsert: true, strict: false });
               return lis_nw.list;
             } else return [];
           })
@@ -48,7 +48,7 @@ export default [
 
     const list = await Promise.all(
       courses.map(async course => {
-        const doc = await db_course.findOne({ course }, { __v: 0 });
+        const doc = await db.course.findOne({ course }, { __v: 0 });
         while (true) {
           try {
             let res1 = doc ? doc.toObject() : { tags: {} };
@@ -59,7 +59,7 @@ export default [
                 res2.tags[kind] = info;
               }
             }
-            await db_course
+            await db.course
               .updateOne({ course: res2.course }, res2, {
                 upsert: true,
                 strict: false
@@ -73,8 +73,7 @@ export default [
       })
     ).catch(console.error);
 
-    const create = _.min(_.map(list as any[], "create"));
-
+    const create = _.min(_.map(list as any[], "create")); // create time
     return res.status(200).json({
       create,
       list

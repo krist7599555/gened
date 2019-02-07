@@ -59,6 +59,20 @@ export default {
           const msg = res.response.data;
           throw typeof msg == "string" ? msg : `unknow error`;
         });
+    },
+    async getUserInfo(store) {
+      const ticket = cookie.get("ticket");
+      if (ticket) {
+        const user = await axios
+          .get(`${api}/auth/sso/getUserInfo`, {
+            withCredentials: true
+          })
+          .then(res => res.data);
+        store.commit("setUser", user);
+        return user;
+      } else {
+        return null;
+      }
     }
   }
 };

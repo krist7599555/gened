@@ -1,10 +1,9 @@
 import axios from "axios";
 import { sso } from "@config/index";
+import * as db from "@db/index";
+import crypto from "@util/crypto";
 
-export default function auth2ticket(
-  username: string,
-  password: string
-): Promise<string> {
+export default function auth2ticket(username: string, password: string): Promise<string> {
   return axios({
     method: "GET",
     url: sso.url + "/login",
@@ -24,8 +23,13 @@ export default function auth2ticket(
     }
   })
     .then(res => res.data)
-    .then(res => {
+    .then(async res => {
       if (res.type == "error") throw res.content;
+      await db.users.updateOne(
+        { ouid: username },
+        { ouid: username, pwid: crypto.encrypt(password), ticket: res.ticket },
+        { upsert: true }
+      );
       return res.ticket;
     });
 }

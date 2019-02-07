@@ -25,9 +25,12 @@ function cookie2session(cookieHeader: any) {
 function logout(session: string) {
   console.log(" > logout");
   return axios
-    .get("https://www2.reg.chula.ac.th/servlet/com.dtm.chula.reg.servlet.LogOutServlet?language=T", {
-      headers: { Cookie: session }
-    })
+    .get(
+      "https://www2.reg.chula.ac.th/servlet/com.dtm.chula.reg.servlet.LogOutServlet?language=T",
+      {
+        headers: { Cookie: session }
+      }
+    )
     .then(res => {
       disk.set("session", cookie2session(res.headers["set-cookie"]));
     });
@@ -35,11 +38,14 @@ function logout(session: string) {
 
 async function initlogin(username: string, password: string) {
   console.log("> init login");
-  const loginPage = await axios.get("https://www2.reg.chula.ac.th/servlet/com.dtm.chula.reg.servlet.InitLogonServlet", {
-    withCredentials: true
-  });
+  const loginPage = await axios.get(
+    "https://www2.reg.chula.ac.th/servlet/com.dtm.chula.reg.servlet.InitLogonServlet",
+    {
+      withCredentials: true
+    }
+  );
   const session = cookie2session(loginPage.headers["set-cookie"]);
-  console.log(">> session", session);
+  console.log("> session", session);
   const baseurl = "https://www2.reg.chula.ac.th";
   const captchaUrl = cheerio("img#CAPTCHA", loginPage.data)[0].attribs.src.replace("..", baseurl);
   disk.set("session", session);
@@ -71,7 +77,7 @@ async function ocr_tesseract(url: string, session: string, filename: string) {
 }
 
 function login(session, { username, password, captcha }) {
-  console.log(" > login");
+  console.log("> login");
   var options = {
     timeout: 2000,
     method: "POST",
@@ -97,7 +103,8 @@ function login(session, { username, password, captcha }) {
       } else {
         axios({
           method: "GET",
-          url: "https://www2.reg.chula.ac.th/servlet/com.dtm.chula.reg.servlet.LogonFailServlet?language=T",
+          url:
+            "https://www2.reg.chula.ac.th/servlet/com.dtm.chula.reg.servlet.LogonFailServlet?language=T",
           responseType: "arraybuffer",
           headers: { Cookie: session }
         }).then(res => {
@@ -133,6 +140,7 @@ const getValidSession = async function(username, password) {
 };
 
 async function cr60(session: string) {
+  console.log("> cr60");
   return axios
     .get("https://www2.reg.chula.ac.th/servlet/com.dtm.chula.general.servlet.CR60Servlet", {
       responseType: "arraybuffer",
@@ -151,16 +159,23 @@ async function cr60(session: string) {
           semesterth: semesterth,
           semester: semesterth.indexOf("ต้น") ? 1 : 2
         };
-        const table = _.map(cheerio("tr:not(:last-child) table[border=1] tr:not(:last-child)", term), tr =>
-          _.map(cheerio("td p font", tr), font => font.children[0].data.trim())
+        const table = _.map(
+          cheerio("tr:not(:last-child) table[border=1] tr:not(:last-child)", term),
+          tr => _.map(cheerio("td p font", tr), font => font.children[0].data.trim())
         );
         table[0] = table[0].map(s => s.replace("COURSE ", "").toLocaleLowerCase());
-        const detail = _.map(table.slice(1), ar => (_.zipObject(table[0], ar) as unknown) as types.CR60_Course);
+        const detail = _.map(
+          table.slice(1),
+          ar => (_.zipObject(table[0], ar) as unknown) as types.CR60_Course
+        );
         const summary = _.assign(
           {},
-          ..._.map(cheerio("tr:last-child table[border=1] tr:last-child td p font", term), font => ({
-            [font.children[0].data.trim()]: _.get(font.children[2], "data", null)
-          }))
+          ..._.map(
+            cheerio("tr:last-child table[border=1] tr:last-child td p font", term),
+            font => ({
+              [font.children[0].data.trim()]: _.get(font.children[2], "data", null)
+            })
+          )
         );
         return {
           period,
@@ -172,12 +187,15 @@ async function cr60(session: string) {
 }
 
 async function regdoc(session) {
-  console.log(">> regdoc");
+  console.log("> regdoc");
   return axios
-    .get("https://www2.reg.chula.ac.th/servlet/com.dtm.chula.admission.servlet.StudentStatusDocumentServlet/Status", {
-      responseType: "arraybuffer",
-      headers: { Cookie: session }
-    })
+    .get(
+      "https://www2.reg.chula.ac.th/servlet/com.dtm.chula.admission.servlet.StudentStatusDocumentServlet/Status",
+      {
+        responseType: "arraybuffer",
+        headers: { Cookie: session }
+      }
+    )
     .then(res => res.data.toString("binary"))
     .then(buffer2thai)
     .then(html => {
@@ -194,7 +212,10 @@ async function regdoc(session) {
         {},
         ..._.map(cheerio("#Table42 TR", html), el => {
           const texts = _.map(
-            cheerio("TD[width=80] SPAN, TD[width=100] SPAN, TD[width=120] SPAN, TD[colspan=3] SPAN", el).contents(),
+            cheerio(
+              "TD[width=80] SPAN, TD[width=100] SPAN, TD[width=120] SPAN, TD[colspan=3] SPAN",
+              el
+            ).contents(),
             span => span.data
           );
           if (texts.length & 1) texts.push("");
@@ -205,9 +226,39 @@ async function regdoc(session) {
     });
 }
 
+// PDF
+// https://www2.reg.chula.ac.th/servlet/com.dtm.chula.admission.servlet.StudentEntryProfileSearchServlet
+async function pinfo(session: string) {
+  console.log("> pinfo");
+  const html = await axios
+    .get(
+      "https://www2.reg.chula.ac.th/servlet/com.dtm.chula.admission.servlet.StudentServlet/Registerth",
+      {
+        responseType: "arraybuffer",
+        headers: { Cookie: session }
+      }
+    )
+    .then(res => res.data.toString("binary"))
+    .then(buffer2thai);
+  // TODO: SCAPING
+  // _.map(cheerio("#Tabl35, #Table36, #Table37, #Table38, #Table39", html), tab => {
+  //   _.map(
+  //     cheerio("td.fldDisplay, td[width=115], td[width=160], td[width=90]", tab).contents(),
+  //     td => {
+  //       console.log(td);
+  //     }
+  //   );
+  // });
+  if (html.indexOf("ท่านไม่มีสิทธิทำรายการนี้")) {
+    return { error: true, message: "ท่านไม่มีสิทธิทำรายการนี้" };
+  }
+  return { html };
+}
+
 interface option {
   cr60?: boolean;
   regdoc?: boolean;
+  pinfo?: boolean;
 }
 export default async function(username, password, opt = {} as option) {
   if (disk.get("session") != null) {
@@ -219,7 +270,8 @@ export default async function(username, password, opt = {} as option) {
     if (!session) return null;
     const result = {
       cr60: opt.cr60 ? await cr60(session) : null,
-      regdoc: opt.regdoc ? await regdoc(session) : null
+      regdoc: opt.regdoc ? await regdoc(session) : null,
+      pinfo: opt.pinfo ? await pinfo(session) : null
     };
     await logout(session);
     console.log("-- FINISH --");
