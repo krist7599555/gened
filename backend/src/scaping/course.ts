@@ -29,7 +29,7 @@ export default [
       return res.status(400).json({ codes, message: "code not match pattern" });
     }
     let clusters = [];
-    const courses = _.uniq(
+    const courses: string[] = _.uniq(
       _.flatten(
         await Promise.all(
           _.map(codes, async (code: string) => {

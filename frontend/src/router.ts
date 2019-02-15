@@ -20,9 +20,14 @@ export default new Router({
       component: Course
     },
     {
-      path: "/test",
-      name: "test",
-      component: () => import("./views/Test.vue")
+      path: "/profile",
+      name: "profile",
+      component: () => import("./views/Profile.vue")
+    },
+    {
+      path: "/mbti",
+      name: "mbti",
+      component: () => import("./views/Mbti.vue")
     },
     {
       path: "*",

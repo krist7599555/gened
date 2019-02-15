@@ -1,3 +1,4 @@
+/* eslint-disable */
 import axios from "axios";
 import week from "./week";
 import _ from "lodash";
@@ -36,12 +37,12 @@ export default {
             return _.includes(state.search.kind, tags.gened.english);
           })
           .filter(row => {
+            console.log(row);
             const data = JSON.stringify(row).toLowerCase();
             const search = state.search.text.toLowerCase();
             return data.includes(search);
           })
           .reduce((res: any[], obj) => {
-            // filter day
             const validsection = _.reduce(
               _.entries(obj.schedule.record),
               (obj: any, [section, rooms]: any) => {
@@ -101,6 +102,7 @@ export default {
   },
   mutations: {
     setGened(state, newVal) {
+      console.log("set Gened to", newVal);
       state.GENED = newVal;
     },
     edit(state, value) {

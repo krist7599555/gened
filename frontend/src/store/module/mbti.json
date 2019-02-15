@@ -1,0 +1,302 @@
+{
+  "head": {
+    "main": {
+      "th": "3 สิ่งควรรู้ก่อนทำแบบทดสอบ",
+      "en": "Three things to know before taking the test"
+    },
+    "list": [
+      { "th": "ใช้เวลาไม่เกิน 12 นาที", "en": "Takes less than 12 minutes." },
+      {
+        "th": "ตอบอย่างตรงไปตรงมาแม้คุณจะไม่ชอบคำตอบแบบนั้น",
+        "en": "Answer honestly, even if you don’t like the answer."
+      },
+      { "th": "พยายามอย่าตอบแบบ \"กลาง ๆ\"", "en": "Try not to leave any \"neutral\" answers." }
+    ]
+  },
+  "question": [
+    {
+      "num": "1",
+      "th": "คุณรู้สึกว่าเป็นเรื่องยากที่จะแนะนำตัวกับผู้อื่น",
+      "en": "You find it difficult to introduce yourself to other people."
+    },
+    {
+      "num": "2",
+      "th": "คุณมักจมอยู่ในความคิดจนละเลยหรือหลงลืมสิ่งรอบตัว",
+      "en": "You often get so lost in thoughts that you ignore or forget your surroundings."
+    },
+    {
+      "num": "3",
+      "th": "คุณพยายามตอบอีเมลเร็วที่สุดเท่าที่จะทำได้และไม่ชอบให้กล่องจดหมายเข้ายุ่งเหยิง",
+      "en": "You try to respond to your e-mails as soon as possible and cannot stand a messy inbox."
+    },
+    {
+      "num": "4",
+      "th": "คุณพบว่าเป็นเรื่องง่ายที่จะผ่อนคลายและมีสมาธิภายใต้ความกดดัน",
+      "en": "You find it easy to stay relaxed even when there is some pressure."
+    },
+    {
+      "num": "5",
+      "th": "คุณมักไม่ค่อยเป็นคนเริ่มต้นการสนทนา",
+      "en": "You do not usually initiate conversations."
+    },
+    {
+      "num": "6",
+      "th": "คุณแทบจะไม่ลงมือทำอะไรที่อยู่นอกเหนือความสงสัยใคร่รู้",
+      "en": "You rarely do something just out of sheer curiosity."
+    },
+    { "num": "7", "th": "คุณรู้สึกเหนือกว่าผู้อื่น", "en": "You feel superior to other people." },
+    {
+      "num": "8",
+      "th": "ความเป็นระเบียบสำคัญกับคุณมากกว่าความสามารถในการปรับเปลี่ยน",
+      "en": "Being organized is more important to you than being adaptable."
+    },
+    {
+      "num": "9",
+      "th": "คุณมักมีแรงจูงใจและกระตือรือร้นอยู่เสมอ",
+      "en": "You are usually highly motivated and energetic."
+    },
+    {
+      "num": "10",
+      "th": "การชนะการโต้แย้งสำคัญกับคุณมากกว่าการระวังไม่ให้ผู้อื่นหงุดหงิด",
+      "en": "Winning a debate matters less to you than making sure no one gets upset."
+    },
+    {
+      "num": "11",
+      "th": "คุณมักรู้สึกว่าคุณต้องอธิบายการกระทำของตัวเองให้ผู้อื่นเข้าใจ",
+      "en": "You often feel as if you have to justify yourself to other people."
+    },
+    {
+      "num": "12",
+      "th": "บ้านและบริเวณทำงานของคุณนั้นสงบและเป็นระเบียบ",
+      "en": "Your home and work environments are quite tidy."
+    },
+    {
+      "num": "13",
+      "th": "คุณไม่กังวลใจในการตกเป็นจุดสนใจของคนอื่นๆ",
+      "en": "You do not mind being at the center of attention."
+    },
+    {
+      "num": "14",
+      "th": "คุณคิดว่าตัวเองเน้นการทำได้จริงมากกว่าความคิดสร้างสรรค์",
+      "en": "You consider yourself more practical than creative."
+    },
+    {
+      "num": "15",
+      "th": "แทบไม่เคยมีใครทำให้คุณอารมณ์เสียได้",
+      "en": "People can rarely upset you."
+    },
+    {
+      "num": "16",
+      "th": "คุณมักวางแผนการเดินทางของอย่างรอบคอบ",
+      "en": "Your travel plans are usually well thought out."
+    },
+    {
+      "num": "17",
+      "th": "บ่อยครั้งเป็นเรื่องยากที่คุณจะเข้าใจความรู้สึกของผู้อื่น",
+      "en": "It is often difficult for you to relate to other people’s feelings."
+    },
+    {
+      "num": "18",
+      "th": "อารมณ์ของคุณเปลี่ยนได้อย่างรวดเร็ว",
+      "en": "Your mood can change very quickly."
+    },
+    {
+      "num": "19",
+      "th": "ในการพูดคุย ข้อเท็จจริงควรมีความสำคัญกว่าความรู้สึกผู้อื่น",
+      "en": "In a discussion, truth should be more important than people’s sensitivities."
+    },
+    {
+      "num": "20",
+      "th": "คุณแทบไม่ได้กังวลเลยว่าการกระทำของคุณส่งผลต่อผู้อื่นอย่างไร",
+      "en": "You rarely worry about how your actions affect other people."
+    },
+    {
+      "num": "21",
+      "th": "สไตล์การทำงานของคุณนั้นจะมีความกระตือรือร้นเป็นช่วง ๆ มากกว่าการดำเนินตามแบบแผนและเป็นไปอย่างมีระบบ",
+      "en": "Your work style is closer to random energy spikes than to a methodical and organized approach."
+    },
+    { "num": "22", "th": "คุณมักอิจฉาผู้อื่น", "en": "You are often envious of others." },
+    {
+      "num": "23",
+      "th": "หนังสือหรือวิดีโอเกมส์ที่น่าสนใจนั้นมักจะดีกว่าการเข้าร่วมงานสังคม",
+      "en": "An interesting book or a video game is often better than a social event."
+    },
+    {
+      "num": "24",
+      "th": "การมีความสามารถในการวางแผนและทำตามแผนนั้นเป็นสิ่งสำคัญที่สุดในการทำงานทุกโครงการ",
+      "en": "Being able to develop a plan and stick to it is the most important part of every project."
+    },
+    {
+      "num": "25",
+      "th": "คุณแทบไม่เคยหลงไหลไปกับเรื่องแฟนตาซีหรือแนวคิดใด ๆ",
+      "en": "You rarely get carried away by fantasies and ideas."
+    },
+    {
+      "num": "26",
+      "th": "คุณมักพบว่าตัวเองจมอยู่กับความคิดเมื่อเดินอยู่ท่ามกลางธรรมชาติ",
+      "en": "You often find yourself lost in thought when you are walking in nature."
+    },
+    {
+      "num": "27",
+      "th": "หากมีใครที่ตอบอีเมลคุณช้า คุณจะเริ่มคิดว่าคุณพูดอะไรผิดไปหรือไม่",
+      "en": "If someone does not respond to your e-mail quickly, you start worrying if you said something wrong."
+    },
+    {
+      "num": "28",
+      "th": "ในฐานะผู้ปกครอง คุณอยากเห็นลูกเติบโตเป็นเด็กจิตใจดีมากกว่าเด็กฉลาด",
+      "en": "As a parent, you would rather see your child grow up kind than smart."
+    },
+    {
+      "num": "29",
+      "th": "คุณไม่ยอมให้ผู้อื่นมีผลกับการกระทำของคุณ",
+      "en": "You do not let other people influence your actions."
+    },
+    {
+      "num": "30",
+      "th": "ความฝันของคุณมักอยู่ในโลกและสถานการณ์ความเป็นจริง",
+      "en": "When you sleep, your dreams tend to focus on the real world and its events."
+    },
+    {
+      "num": "31",
+      "th": "คุณสามารถเข้าร่วมกิจกรรมสังคมต่าง ๆ ในที่ทำงานใหม่ได้ในเวลาไม่นาน",
+      "en": "It does not take you much time to start getting involved in social activities at your new workplace."
+    },
+    {
+      "num": "32",
+      "th": "คุณเป็นคนทำอะไรตามสถานการณ์มากกว่าเป็นนักวางแผนที่รอบคอบ",
+      "en": "You are more of a natural improviser than a careful planner."
+    },
+    {
+      "num": "33",
+      "th": "อารมณ์ควบคุมคุณมากกว่าที่คุณควบคุมอารมณ์",
+      "en": "Your emotions control you more than you control them."
+    },
+    {
+      "num": "34",
+      "th": "คุณสนุกสนานกับการไปร่วมงานสังคมที่ต้องมีกิจกรรมการแต่งกายหรือบทบาทสมมติ",
+      "en": "You enjoy going to social events that involve dress-up or role-play activities."
+    },
+    {
+      "num": "35",
+      "th": "คุณมักใช้เวลาศึกษาแนวความคิดที่ยังไม่เป็นจริงหรือยังไม่ดำเนินการได้แต่มีความน่าสนใจ",
+      "en": "You often spend time exploring unrealistic and impractical yet intriguing ideas."
+    },
+    {
+      "num": "36",
+      "th": "คุณมักจะทำตามสัญชาตญาณมากกว่าวางแผนอย่างละเอียด",
+      "en": "You would rather improvise than spend time coming up with a detailed plan."
+    },
+    {
+      "num": "37",
+      "th": "คุณดูเป็นคนเก็บตัวและเงียบ ๆ ",
+      "en": "You are a relatively reserved and quiet person."
+    },
+    {
+      "num": "38",
+      "th": "หากคุณมีธุรกิจ คุณพบว่าเป็นเรื่องยากที่ต้องเลิกจ้างพนักงานที่มีความจงรักภักดีแต่ทำงานได้ไม่ดี",
+      "en": "If you had a business, you would find it very difficult to fire loyal but underperforming employees."
+    },
+    {
+      "num": "39",
+      "th": "คุณมักหาเหตุผลว่าทำไมมนุษย์จึงคงอยู่ได้",
+      "en": "You often contemplate the reasons for human existence."
+    },
+    {
+      "num": "40",
+      "th": "ตรรกะมักสำคัญกว่าจิตใจเมื่อต้องตัดสินใจเรื่องสำคัญ ๆ",
+      "en": "Logic is usually more important than heart when it comes to making important decisions."
+    },
+    {
+      "num": "41",
+      "th": "การมีทางเลือกหลายทางนั้นสำคัญกว่ามีรายการสิ่งที่ต้องทำ",
+      "en": "Keeping your options open is more important than having a to-do list."
+    },
+    {
+      "num": "42",
+      "th": "หากเพื่อของคุณกำลังเศร้า คุณมักจะปลอบประโลมมากกว่าเสนอทางออกในการแก้ปัญหา",
+      "en": "If your friend is sad about something, you are more likely to offer emotional support than suggest ways to deal with the problem."
+    },
+    { "num": "43", "th": "คุณแทบไม่เคยรู้สึกว่าไม่ปลอดภัยเลย", "en": "You rarely feel insecure." },
+    {
+      "num": "44",
+      "th": "คุณคิดว่าการการวางแผนส่วนตัวและทำตามแผนนั้นเป็นเรื่องไม่ยาก",
+      "en": "You have no difficulties coming up with a personal timetable and sticking to it."
+    },
+    {
+      "num": "45",
+      "th": "การเป็นคนที่ถูกต้องนั้นสำคัญกว่าการเป็นคนที่ให้ความร่วมมือดีเมื่อต้องทำงานร่วมกับผู้อื่น",
+      "en": "Being right is more important than being cooperative when it comes to teamwork."
+    },
+    {
+      "num": "46",
+      "th": "คุณคิดว่าความคิดเห็นของผู้อื่นนั้นควรได้รับความเคารพไม่ว่าความคิดเห็นนั้นจะรองรับกับข้อเท็จจริงหรือไม่ก็ตาม",
+      "en": "You think that everyone’s views should be respected regardless of whether they are supported by facts or not."
+    },
+    {
+      "num": "47",
+      "th": "คุณรู้สึกกระตือรือร้นขึ้นเมื่อใช้เวลาอยู่กับกลุ่มคน",
+      "en": "You feel more energetic after spending time with a group of people."
+    },
+    { "num": "48", "th": "คุณมักหาของไม่เจอ", "en": "You frequently misplace your things." },
+    {
+      "num": "49",
+      "th": "คุณคิดว่าตัวเองเป็นคนมั่นคงทางอารมณ์",
+      "en": "You see yourself as very emotionally stable."
+    },
+    {
+      "num": "50",
+      "th": "จิตใจของคุณมักจะว้าวุ่นเมื่อมีแนวคิดหรือแผนการที่ยังไม่รู้จัก",
+      "en": "Your mind is always buzzing with unexplored ideas and plans."
+    },
+    {
+      "num": "51",
+      "th": "คุณไม่เรียกตัวเองว่าคนช่างฝัน",
+      "en": "You would not call yourself a dreamer."
+    },
+    {
+      "num": "52",
+      "th": "คุณมักพบกว่าเป็นเรื่องยากที่จะผ่อนคลายเมื่อต้องพูดต่อหน้าคนจำนวนมาก",
+      "en": "You usually find it difficult to relax when talking in front of many people."
+    },
+    {
+      "num": "53",
+      "th": "โดยทั่วไปแล้ว คุณพึ่งพาประสบการณ์มากกว่าจินตนาการของตัวเอง",
+      "en": "Generally speaking, you rely more on your experience than your imagination."
+    },
+    {
+      "num": "54",
+      "th": "คุณกังวลมากเกินไปว่าคนอื่นคิดอย่างไร",
+      "en": "You worry too much about what other people think."
+    },
+    {
+      "num": "55",
+      "th": "หากห้องมีคนอยู่เต็ม คุณมักยืนติดกำแพงและหลีกเลี่ยงการเป็นจุดสนใจ",
+      "en": "If the room is full, you stay closer to the walls, avoiding the center."
+    },
+    {
+      "num": "56",
+      "th": "คุณมีแนวโน้มที่จะผลัดวันประกันพรุ่งจนแทบไม่เหลือเวลาให้ทำอะไรอย่างเพียงพอ",
+      "en": "You have a tendency to procrastinate until there is not enough time to do everything."
+    },
+    {
+      "num": "57",
+      "th": "คุณมักว้าวุ่นเมื่อต้องอยู่ในสถานการณ์ที่เคร่งเครียด",
+      "en": "You feel very anxious in stressful situations."
+    },
+    {
+      "num": "58",
+      "th": "คณเชื่อว่าการเป็นที่ชื่นชอบของผู้อื่นนั้นดีกว่าการเป็นผู้มีอำนาจ",
+      "en": "You believe that it is more rewarding to be liked by others than to be powerful."
+    },
+    {
+      "num": "59",
+      "th": "คุณสนใจในเรื่องที่ไม่เป็นไปตามแบบแผนและมีความคลุมเครือเสมอ เช่น หนังสือ ศิลปะ หรือ ภาพยนต์",
+      "en": "You have always been interested in unconventional and ambiguous things, e.g. in books, art, or movies."
+    },
+    {
+      "num": "60",
+      "th": "คุณมักเป็นผู้ริเริ่มเสมอ ในสถานการณ์ทางสังคม",
+      "en": "You often take initiative in social situations."
+    }
+  ]
+}

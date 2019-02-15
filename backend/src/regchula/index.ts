@@ -11,6 +11,7 @@ import * as types from "./types/CR60";
 // import curlirize from "axios-curlirize";
 
 import storage from "@util/diskStorage";
+import { type } from "os";
 const disk = new storage("disk/reg.data.json", __dirname);
 
 // curlirize(axios);
@@ -23,7 +24,7 @@ function cookie2session(cookieHeader: any) {
 }
 
 function logout(session: string) {
-  console.log(" > logout");
+  console.log("> logout");
   return axios
     .get(
       "https://www2.reg.chula.ac.th/servlet/com.dtm.chula.reg.servlet.LogOutServlet?language=T",
@@ -79,7 +80,7 @@ async function ocr_tesseract(url: string, session: string, filename: string) {
 function login(session, { username, password, captcha }) {
   console.log("> login");
   var options = {
-    timeout: 2000,
+    timeout: 3000,
     method: "POST",
     url: "https://www2.reg.chula.ac.th/servlet/com.dtm.chula.reg.servlet.LogonServlet",
     headers: {
@@ -97,7 +98,13 @@ function login(session, { username, password, captcha }) {
   };
   return new Promise((resolve, reject) => {
     request(options, function(error, response, body) {
-      if (error) reject(new Error(error));
+      if (error) {
+        if (error.code == "ESOCKETTIMEDOUT") {
+          return reject("TIMEOUT");
+        } else {
+          return reject(error);
+        }
+      }
       if (typeof body == "string" && body.toUpperCase().indexOf("FAIL") == -1) {
         resolve(session);
       } else {
@@ -107,18 +114,23 @@ function login(session, { username, password, captcha }) {
             "https://www2.reg.chula.ac.th/servlet/com.dtm.chula.reg.servlet.LogonFailServlet?language=T",
           responseType: "arraybuffer",
           headers: { Cookie: session }
-        }).then(res => {
-          const html = res.data.toString("binary");
-          try {
-            const message = buffer2thai(cheerio("FONT[color='#FF0000']", html)[0].children[0].data);
-            console.log(message);
-            reject(message);
-          } catch (e) {
-            console.log("some unknown error");
-            // console.log(e);
-            reject(html);
-          }
-        });
+        })
+          .then(res => buffer2thai(res.data.toString("binary")))
+          .then(html => {
+            try {
+              const message = cheerio("FONT[color='#FF0000']", html)[0].children[0].data.trim();
+              reject(message);
+            } catch (e) {
+              resolve(html);
+            }
+          })
+          .catch(err => {
+            if (err.code === "ESOCKETTIMEDOUT") {
+              return reject("TIMEOUT");
+            } else {
+              return reject(err);
+            }
+          });
       }
     });
   });
@@ -131,10 +143,19 @@ const getValidSession = async function(username, password) {
   try {
     return await login(session, { username, password, captcha: text });
   } catch (e) {
+    if (e instanceof Object && "code" in e) e = e.code;
+    console.log(e);
+    if (e.toUpperCase().indexOf("TIMEOUT") != -1) {
+      throw "TIMEOUT";
+    }
     if (e.indexOf("เลขประจำตัวนิสิต และ/หรือ รหัสผ่าน ไม่ถูกต้อง") != -1) {
-      return null;
+      throw "เลขประจำตัวนิสิต และ/หรือ รหัสผ่าน ไม่ถูกต้อง";
+    }
+    if (e.indexOf("ระบบตรวจพบว่าท่านได้เข้าสู่ระบบอยู่ในขณะนี้") != -1) {
+      throw "ระบบตรวจพบว่าท่านได้เข้าสู่ระบบอยู่ในขณะนี้";
     }
     await logout(session);
+    console.log("> retry");
     return await getValidSession(username, password);
   }
 };
@@ -230,29 +251,51 @@ async function regdoc(session) {
 // https://www2.reg.chula.ac.th/servlet/com.dtm.chula.admission.servlet.StudentEntryProfileSearchServlet
 async function pinfo(session: string) {
   console.log("> pinfo");
-  const html = await axios
-    .get(
+  const html = await axios({
+    method: "GET",
+    url:
       "https://www2.reg.chula.ac.th/servlet/com.dtm.chula.admission.servlet.StudentServlet/Registerth",
-      {
-        responseType: "arraybuffer",
-        headers: { Cookie: session }
-      }
-    )
+    responseType: "arraybuffer",
+    headers: { Cookie: session }
+  })
     .then(res => res.data.toString("binary"))
     .then(buffer2thai);
-  // TODO: SCAPING
-  // _.map(cheerio("#Tabl35, #Table36, #Table37, #Table38, #Table39", html), tab => {
-  //   _.map(
-  //     cheerio("td.fldDisplay, td[width=115], td[width=160], td[width=90]", tab).contents(),
-  //     td => {
-  //       console.log(td);
-  //     }
-  //   );
-  // });
-  if (html.indexOf("ท่านไม่มีสิทธิทำรายการนี้")) {
+
+  if (html.indexOf("ท่านไม่มีสิทธิทำรายการนี้") != -1) {
     return { error: true, message: "ท่านไม่มีสิทธิทำรายการนี้" };
   }
-  return { html };
+
+  const tabs = _.map(cheerio("#Table35, #Table36, #Table37, #Table38, #Table39", html), tab =>
+    _.assign(
+      {},
+      ..._.map(cheerio("tr", tab), tr => {
+        let line = _.map(
+          cheerio(
+            "td.flddisplay, td.fldDisplay, td[width=115], td[width=150], td[width=160], td[width=90]",
+            tr
+          ).contents(),
+          td => td.data.trim().replace(/\s\s+/, " ")
+        );
+        if (line.length == 3) {
+          for (let [a, b] of [["เลขที่พาสปอร์ต", "E-Mail Address"], ["หมู่บ้าน", "ถนน"]]) {
+            if (line[0] == a && line[1] == b) {
+              line.splice(1, 0, "");
+            }
+          }
+        }
+        if (line.length % 2 == 1) line.push("");
+        return _.fromPairs(_.chunk(line, 2));
+      })
+    )
+  ).filter(o => !_.isEmpty(o));
+  const [a, b, c, d, e] = tabs;
+  return {
+    ประวัติส่วนตัว: a,
+    ที่อยู่ตามทะเบียนบ้าน: b,
+    ที่อยู่ปัจจุบัน: c,
+    ที่อยู่ฉุกเฉิน: d,
+    วุฒิการศึกษาที่ใช้สมัครเข้าศึกษา: e
+  };
 }
 
 interface option {
@@ -274,7 +317,7 @@ export default async function(username, password, opt = {} as option) {
       pinfo: opt.pinfo ? await pinfo(session) : null
     };
     await logout(session);
-    console.log("-- FINISH --");
+    console.log("-- FINISH OK --");
     // console.log(JSON.stringify(result, null, 2));
     return result;
   } catch (e) {
@@ -282,7 +325,12 @@ export default async function(username, password, opt = {} as option) {
       await logout(disk.get("session"));
       disk.remove("session");
     }
-    console.log("-- FINISH --");
+    if (typeof e == "string") {
+      throw e;
+    } else {
+      console.log(e);
+    }
+    console.log("-- FINISH ERR --");
     return null;
   }
 }

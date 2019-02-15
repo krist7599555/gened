@@ -7,9 +7,7 @@ import { contains as _includes } from "lodash/fp";
 export default {
   namespaced: true,
   state: {
-    TABLE:
-      ls.get("weekSelect") ||
-      _.zipObject(DAYS, _.map(DAYS, () => Array.from(TIMES)))
+    TABLE: ls.get("weekSelect") || _.zipObject(DAYS, _.map(DAYS, () => Array.from(TIMES)))
   },
   getters: {
     DAYS: () => DAYS,
@@ -17,9 +15,7 @@ export default {
     TABLE: state => state.TABLE,
     get: (state: any) => (d: string, t: number) => {
       d = d.toUpperCase();
-      return (
-        t < 8 || t > 17 || !(d in state.TABLE) || _includes(t)(state.TABLE[d])
-      );
+      return t < 8 || t > 17 || !(d in state.TABLE) || _includes(t)(state.TABLE[d]);
     }
   },
   mutations: {
