@@ -2,15 +2,29 @@
   ul.menu-list
     li(v-if='user')
       router-link(to="profile")
-        h1 {{user.displayname}} ({{user.คณะย่อ}} # {{user.ชั้นปี}})
+        .field.is-grouped
+          .control
+            b-icon(icon='crown' pack='fas' type='is-warning')
+          .control  
+            span.label {{user.displayname}} ({{user.faculty}} # {{user.year}})
     li(v-if='user')
-      router-link.is-flex(to="mbti")
-        label(style='margin-top: 0') MBTI test
-        span(style='margin-left: 0.3rem')
-          b-icon(pack="fas" icon="fire" type='is-danger')
+      router-link(to="mbti")
+        .field.is-grouped
+          .control
+            //- span(style='margin-left: 0.3rem')
+            b-icon(pack="fas" icon="fire" type='is-danger')
+          .control
+            span.label.is-inline(style='margin-top: 0') MBTI test
     li
       a
-        button.button.is-link(@click='logout') logout
+        button.button.is-link(@click='logout') 
+          span logout
+          b-icon(icon='sign-out-alt' pack='fas')
+    li
+      a
+        button.button.is-success(@click='lineLogin') 
+          span connect with line
+          b-icon(icon='line' pack='fab')
 </template>
 
 <script lang="ts">
@@ -23,8 +37,13 @@ import cookie from "cookiejs";
 // @ts-ignore
 export default class SidebarLogin extends Vue {
   // @ts-ignore
-  @Action("auth/logout") logout: any;
+  @Action("auth/logout")
+  logout: any;
   // @ts-ignore
-  @Getter("auth/user") user: any;
+  @Getter("auth/user")
+  user: any;
+  // @ts-ignore
+  @Action("auth/lineLogin")
+  lineLogin: any;
 }
 </script>

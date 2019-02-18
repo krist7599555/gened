@@ -10,26 +10,33 @@
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    "baseUrl": "",
     "types": ["webpack-env"],
+    "rootDir": "./",
+    "baseUrl": "./src",
+    "outDir": "./dist",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "plugins": [{ "name": "ts-vue-plugin" }],
     "paths": {
-      "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@config/*": ["src/config/*"],
-      "@constant/*": ["src/constant/*"]
+      "~/*": ["*"],
+      "@/*": ["*", "components/*", "views/*"],
+      "@components/*": ["components/*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "src/**/*.json",
-    "tsconfig.json",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "src",
+    "src/**/*"
+    // "src/**/*.pug",
+    // "src/**/*.scss",
+    // "src/**/*.ts",
+    // "src/**/*.tsx",
+    // "src/**/*.vue",
+    // "src/**/*.json",
+    // "tsconfig.json",
+    // "tests/**/*.ts",
+    // "tests/**/*.tsx"
   ],
   "exclude": ["node_modules"]
 }

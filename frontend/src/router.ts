@@ -1,7 +1,9 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
-import Course from "./views/Course.vue";
+import Home from "@/views/Home/Home.vue";
+import Mbti from "@/views/Mbti/Mbti.vue";
+import Profile from "@/views/Profile/Profile.vue";
+import Course from "@/views/Course.vue";
 
 Vue.use(Router);
 
@@ -15,33 +17,24 @@ export default new Router({
       component: Home
     },
     {
-      path: "/course/:courseId",
+      path: "/course/:course",
       name: "course",
       component: Course
     },
     {
       path: "/profile",
       name: "profile",
-      component: () => import("./views/Profile.vue")
+      component: Profile
     },
     {
       path: "/mbti",
       name: "mbti",
-      component: () => import("./views/Mbti.vue")
+      component: Mbti
     },
     {
       path: "*",
       name: "notfound",
-      component: () => import("./views/Notfound.vue")
+      component: () => import("@/views/NotFound.vue")
     }
-    // {
-    //   path: "/about",
-    //   name: "about",
-    //   // route level code-splitting
-    //   // this generates a separate chunk (about.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () =>
-    //     import(/* webpackChunkName: "about" */ "./views/About.vue")
-    // }
   ]
 });

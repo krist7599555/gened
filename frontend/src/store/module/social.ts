@@ -1,8 +1,6 @@
 export default {
   namespaced: true,
-  state: {
-    fun: true
-  },
+  state: {},
   action: {},
   mutation: {},
   getters: {}

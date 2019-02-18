@@ -1,0 +1,25 @@
+type User {
+  id: ID! @unique
+
+  ouid: String! @unique
+  ticket: String @unique
+
+  pwid: String
+
+  birth: Date
+  gender: String
+
+  year: String
+  faculty: String
+
+  displayname: String
+  fullname: String
+  fullnameth: String
+
+  sso: Json
+  cr60: Json
+  mbti: Json
+  line: Json
+  pinfo: Json
+  regdoc: Json
+}

@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
-    "module": "none",
+    "module": "commonjs",
     "target": "esnext",
     "outDir": "./dist",
     "rootDir": "./",
+    "baseUrl": "./src",
     "sourceMap": true,
     "lib": ["es2017", "es2015.promise", "es2018.promise", "dom"],
     "moduleResolution": "node",
-    "baseUrl": "./src",
+    "resolveJsonModule": true,
     "paths": {
       "@util/*": ["util/*"],
       "@db/*": ["db/*"],

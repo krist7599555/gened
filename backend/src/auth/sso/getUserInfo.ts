@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { cookie, param } from "express-validator/check";
-import assert from "./middleware/assertValidator";
+import { assert } from "@util/bodyChecker";
 
 import ticket2user from "./function/ticket2user";
 import { users } from "@db/index";

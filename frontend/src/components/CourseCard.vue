@@ -1,7 +1,9 @@
 <template lang="pug">
 div(style='display: flex; justify-content: center'): .content
   template(v-if='src')
-    h3 {{src.courseName.nameSHORT}} : {{src.courseName.id}} 
+    h3
+      router-link(:to="'/course/' + src.courseName.id")
+        | {{src.courseName.nameSHORT}} :  {{src.courseName.id}}
     p {{src.courseName.nameTHAI}} #[br] {{src.courseName.nameENG}}
     p
      | {{src.course.nameENG}} #[br]
@@ -38,7 +40,7 @@ div(style='display: flex; justify-content: center'): .content
     p ระบบศึกษา {{src.group}} #[br] {{src.yeartime}} 
     
 
-    p another source
+    h5 แหล่งข้อมูลอื่น
     ul
       li
         a(:href='"http://www.gened.chula.ac.th/course/" + src.course') gened.chula.ac.th
@@ -72,7 +74,8 @@ export default class CourseCard extends Vue {
   BUILDING = constant.BUILDING;
   DAYS = constant.DAYS;
   // @ts-ignore
-  @Prop() course!: string;
+  @Prop()
+  course!: string;
 
   src: any = null;
   mounted() {

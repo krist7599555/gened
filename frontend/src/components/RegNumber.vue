@@ -17,7 +17,6 @@ export default {
   },
   computed: {
     courseClass() {
-      // console.log(this.value);
       const avail =
         Number(this.value.ที่นั้งทั้งหมด) - Number(this.value.ลงทะเบียน);
       if (avail <= 0) return "has-text-danger";

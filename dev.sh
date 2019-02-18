@@ -1,1 +1,2 @@
-yarn --fix --cwd frontend serve & yarn --cwd backend dev
+yarn --fix --cwd frontend dev &
+yarn --cwd backend dev

@@ -1,3 +1,4 @@
+/* eslint-disable */
 const DAYS = ["MO", "TU", "WE", "TH", "FR"];
 const TIMES = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
 import ls from "local-storage";

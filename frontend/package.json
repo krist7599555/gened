@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "dev": "NODE_ENV=development vue-cli-service serve",
+    "dev": "cross-env NODE_ENV=development vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "production": "NODE_ENV=production yarn build && rsync -r ./dist/* root@128.199.216.159:/var/www/gened"
@@ -32,6 +32,7 @@
     "pug-plain-loader": "^1.0.0",
     "register-service-worker": "^1.0.0",
     "socket.io-client": "^2.1.1",
+    "ts-vue-plugin": "^0.2.0",
     "typescript-eslint-parser": "^22.0.0",
     "vue": "^2.5.17",
     "vue-class-component": "^6.3.2",
@@ -52,11 +53,12 @@
     "@vue/eslint-config-prettier": "^4.0.1",
     "@vue/eslint-config-typescript": "^4.0.0",
     "babel-eslint": "^10.0.1",
+    "cross-env": "^5.2.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0-0",
     "lint-staged": "^7.2.2",
-    "node-sass": "^4.9.0",
-    "sass-loader": "^7.0.1",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
     "typescript": "^3.0.0",
     "vue-template-compiler": "^2.5.17"
   },

@@ -22,10 +22,12 @@ app.use(cookieParser());
 
 import scapingAPI from "./scaping/index";
 import authAPI from "./auth";
+import mbtiAPI from "./mbti";
 
 app.get("/api", (req, res) => res.status(200).send("Hello from Gened.ml"));
 app.use("/api/scape", scapingAPI);
 app.use("/api/auth", authAPI);
+app.use("/api/mbti", mbtiAPI);
 
 app.use((err, req, res, next) => {
   console.error("ERROR:", err);

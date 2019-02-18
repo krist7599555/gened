@@ -1,8 +1,40 @@
 @font-face {
   font-family: "Thai Sans Neue";
-  src: url("./fonts/ThaiSansNeue-Black.ttf") format("truetype");
+  font-weight: normal;
+  src: url("./fonts/ThaiSansNeue/ThaiSansNeue-Regular.ttf") format("truetype");
   // url("./fonts/ThaiSansNeue.woff") format("woff"),
   // url("./fonts/ThaiSansNeue-fixed.svg#ThaiSansNeue-Light") format("svg"),
+}
+@font-face {
+  font-family: "Thai Sans Neue";
+  font-weight: bold;
+  src: url("./fonts/ThaiSansNeue/ThaiSansNeue-Bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Thai Sans Neue";
+  font-weight: normal;
+  font-style: italic;
+  src: url("./fonts/ThaiSansNeue/ThaiSansNeue-Italic.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "CHULALONGKORN";
+  font-weight: normal;
+  src: url("./fonts/CHULALONGKORN/CHULALONGKORNReg.otf") format("truetype");
+}
+@font-face {
+  font-family: "CHULALONGKORN";
+  font-weight: bold;
+  src: url("./fonts/CHULALONGKORN/CHULALONGKORNBold.otf") format("truetype");
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  font-size: 1.1em;
+  font-family: "Thai Sans Neue";
 }
 * {
   font-family: "Thai Sans Neue";

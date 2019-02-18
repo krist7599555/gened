@@ -4,6 +4,9 @@ import axios from "axios";
 import * as qs from "qs";
 import * as _ from "lodash";
 import * as jwt from "jsonwebtoken";
+import * as db from "@db/index";
+
+import * as line from "@config/line";
 
 export default (req: Request, res: Response) => {
   const { code, state } = req.query;
@@ -16,23 +19,23 @@ export default (req: Request, res: Response) => {
     data: qs.stringify({
       grant_type: "authorization_code",
       code: code,
-      redirect_uri: "http://127.0.0.1:3124/api/auth/line/verify",
-      client_id: "1642547393",
-      client_secret: "f0f14ef28d00504ef7992e378eb7506b"
+      redirect_uri: line.redirect_uri,
+      client_id: line.client_id,
+      client_secret: line.client_secret
     })
   })
     .then(result => result.data)
-    .then(json => {
+    .then(async json => {
       console.log(json.id_token);
-      const decode: any = jwt.verify(
-        json.id_token,
-        "f0f14ef28d00504ef7992e378eb7506b"
+      const decode: any = jwt.verify(json.id_token, line.client_secret);
+      const data = _.assign({ userId: decode.sub, channelId: decode.aud }, json, decode);
+      await db.users.updateOne(
+        { ticket: req.cookies.ticket },
+        { line: data },
+        { upsert: false, strict: false }
       );
-      return res
-        .status(200)
-        .json(
-          _.assign({ userId: decode.sub, channelId: decode.aud }, json, decode)
-        );
+      return res.redirect("/");
+      // return res.status(200).json(data);
     })
     .catch(err => {
       console.log(err.response.data);

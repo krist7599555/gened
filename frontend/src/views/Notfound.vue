@@ -10,28 +10,11 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import { State, Getter, Action, Mutation, namespace } from "vuex-class";
-import { genedData, genedSection } from "./type";
-import _ from "lodash";
 
-import WeekSelect from "../components/WeekSelect.vue";
-import CourseCard from "../components/CourseCard.vue";
-import MemoiTextArea from "../components/MemoiTextArea.vue";
-import SideBar from "./Sidebar.vue";
-import RegNumber from "../components/RegNumber.vue";
-
-import * as constant from "../constant/index";
-
-@Component({
-  components: {
-    WeekSelect,
-    CourseCard,
-    MemoiTextArea,
-    SideBar,
-    RegNumber
-  }
-})
 // @ts-ignore
-export default class Home extends Vue {}
+@Component()
+// @ts-ignore
+export default class NotFound extends Vue {}
 </script>
 
 <style lang="scss" scoped>
@@ -41,9 +24,4 @@ export default class Home extends Vue {}
     padding: 3rem 0.3rem !important;
   }
 }
-.monospace {
-  font-family: monospace;
-}
 </style>
-
-// <style lang="scss"></style>

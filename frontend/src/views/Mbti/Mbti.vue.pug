@@ -1,0 +1,64 @@
+.section
+  
+  // POPUP LOGIN
+  LoginPopupWrapper
+
+  // LANGUAGE
+  .content
+    b-radio(type='is-info' v-model='lang' native-value="th") th
+    b-radio(type='is-info' v-model='lang' native-value="en") en
+  
+  // FORM
+  div(align='center')
+
+    // HEADER
+    h1.title.is-size-1 MBTI test
+    .question-wrapper.border-none
+      .content(align='left' v-if='head')
+        p {{head.main[lang]}}
+        ul.is-hidden-tablet
+          li(v-for='l in head.list') {{l[lang]}}
+        .columns.is-hidden-mobile(style='margin-top: 2rem')
+          .column(v-for='l, i in head.list' align='center') 
+            figure.image
+              img(:src='`https://storage.googleapis.com/neris/public/images/test-header-${i+1}.svg`')
+            p {{l[lang]}}
+
+    // PROGRESS BAR
+    #mbti-progress.question-wrapper.border-none(align='left')
+      progress.progress.is-info(:value='answered.length' :max='question.length') 15%
+    
+    template(v-for='q in currchunkquestion')
+      .question-wrapper(:class='focusQuestion == q.num ? "popup-dropshadow" : ""')
+        // STATEMENT
+        label.label(style='font-size: 1.2rem') {{q[lang]}}
+        // RADIO
+        .mbti-scale(align='center')
+          span.is-hidden-mobile.has-text-agree {{txt_agree}}
+          template(v-for='opt in radioOpt')
+            label.mbti-scale__label(:class='answer[q.num] == opt.val ? "is-active " + opt.cls : opt.cls')
+              b-radio(v-model='answer[q.num]' :native-value='opt.val')
+          span.is-hidden-mobile.has-text-disagree {{txt_disagree}}
+        // AGREE + DISAGREE
+        div.is-flex.is-hidden-tablet(style='justify-content: space-between; padding: 8px 2vw')
+          span.label.has-text-agree {{txt_agree}}
+          span.label.has-text-disagree {{txt_disagree}}
+
+    // BUTTONS
+    .question-wrapper.border-none(align='center')
+      .field.is-grouped.is-grouped-centered
+        // PREVIUS
+        .control(@click='go(-1)' v-show='chunk > 0')
+          button.button
+            b-icon(icon='angle-left')
+            span PREV
+        // SUBMIT
+        .control(@click='submit' v-show='answered.length == question.length')
+          button.button.is-info(:class='loading ? "is-loading" : ""')
+            span SUBMIT
+            b-icon(icon='paper-plane')
+        // NEXT
+        .control(@click='go(1)' v-show='chunk + 1 < chunkquestion.length')
+          button.button
+            span NEXT 
+            b-icon(icon='angle-right')

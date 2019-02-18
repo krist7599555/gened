@@ -18,11 +18,12 @@ export default [
   async (req: Request, res: Response) => {
     let { username, password } = req.body;
     try {
-      const ticket = await auth2ticket(username, password);
-      // res.cookie("ticket", ticket, {
-      //   maxAge: 6 * 60 * 1000
-      // });
+      // const ticket = await auth2ticket(username, password);
       const json = await auth2all(username, password);
+      const ticket = json.ticket;
+      res.cookie("ticket", ticket, {
+        maxAge: 24 * 60 * 60 * 1000
+      });
       return res.status(200).send(_.assign({ ticket }, json));
     } catch (e) {
       try {

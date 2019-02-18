@@ -1,0 +1,27 @@
+.star {
+  color: #ffc82e;
+}
+.thumbtack {
+  color: #d6310c;
+}
+.menu-list a {
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  font-size: 0.9rem;
+}
+.menu-label:not(:last-child) {
+  margin-bottom: 0.8em;
+}
+
+.menu-label:not(:first-child) {
+  margin-top: 0.8em;
+}
+
+#week-select-wrapper {
+  margin-left: -0.7rem;
+  margin-right: -0.3rem;
+  margin-bottom: 1rem;
+  @media screen and (max-width: 500px) {
+    margin-left: 0.2rem;
+  }
+}

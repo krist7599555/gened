@@ -29,5 +29,5 @@ const vm = new Vue({
 }).$mount("#app");
 
 (async function() {
-  vm.$store.dispatch("auth/getUserInfo");
+  await vm.$store.dispatch("auth/getUserInfo");
 })();

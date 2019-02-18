@@ -2,9 +2,9 @@ import Vue from "vue";
 import Vuex from "vuex";
 Vue.use(Vuex);
 
-import mbti from "./module/mbti";
 import auth from "./module/auth";
 import search from "./module/search";
+import mbti from "./module/mbti_";
 import social from "./module/social";
 
 const store = new Vuex.Store({

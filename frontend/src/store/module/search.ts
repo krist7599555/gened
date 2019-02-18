@@ -37,7 +37,6 @@ export default {
             return _.includes(state.search.kind, tags.gened.english);
           })
           .filter(row => {
-            console.log(row);
             const data = JSON.stringify(row).toLowerCase();
             const search = state.search.text.toLowerCase();
             return data.includes(search);
@@ -102,7 +101,6 @@ export default {
   },
   mutations: {
     setGened(state, newVal) {
-      console.log("set Gened to", newVal);
       state.GENED = newVal;
     },
     edit(state, value) {
