@@ -19,14 +19,12 @@
     "allowSyntheticDefaultImports": true,
     "plugins": [{ "name": "ts-vue-plugin" }],
     "paths": {
-      "~/*": ["*"],
       "@/*": ["*", "components/*", "views/*"],
       "@components/*": ["components/*"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
   "include": [
-    "src",
     "src/**/*"
     // "src/**/*.pug",
     // "src/**/*.scss",
@@ -34,9 +32,7 @@
     // "src/**/*.tsx",
     // "src/**/*.vue",
     // "src/**/*.json",
-    // "tsconfig.json",
-    // "tests/**/*.ts",
-    // "tests/**/*.tsx"
+    // "tsconfig.json"
   ],
   "exclude": ["node_modules"]
 }

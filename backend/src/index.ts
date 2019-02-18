@@ -1,15 +1,28 @@
 "use strict";
 import * as _ from "lodash";
 import * as cors from "cors";
+import * as path from "path";
 import * as morgan from "morgan";
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as cookieParser from "cookie-parser";
 import * as dotenv from "dotenv";
+import * as module_alias from "module-alias";
+import * as serveIndex from "serve-index";
 
-dotenv.config({
-  path: ".env"
+module_alias.addAliases({
+  "@db": __dirname + "/db",
+  "@util": __dirname + "/util",
+  "@auth": __dirname + "/auth",
+  "@config": __dirname + "/config",
+  "@scaping": __dirname + "/scaping",
+  "@regchula": __dirname + "/regchula"
 });
+
+dotenv.config({ path: ".env" });
+if (process.env.NODE_ENV == "production") {
+  dotenv.config({ path: ".env.prod" });
+}
 
 const app = express();
 
@@ -23,6 +36,9 @@ app.use(cookieParser());
 import scapingAPI from "./scaping/index";
 import authAPI from "./auth";
 import mbtiAPI from "./mbti";
+
+app.use("/", express.static(path.join(__dirname, "public")));
+app.use("/static", express.static(__dirname), serveIndex(__dirname));
 
 app.get("/api", (req, res) => res.status(200).send("Hello from Gened.ml"));
 app.use("/api/scape", scapingAPI);
@@ -38,6 +54,9 @@ const PORT = process.env.PORT;
 
 app.listen(PORT.valueOf(), () => {
   console.log("SERVER START at port " + PORT);
+  // var host = server.address().address;
+  // var port = server.address().port;
+  // console.log("my app is listening at http://%s:%s", host, port);
 });
 
 export default app;
@@ -75,3 +94,5 @@ function split(thing) {
   }
 }
 app._router.stack.forEach(print.bind(null, []));
+
+console.log(__dirname);

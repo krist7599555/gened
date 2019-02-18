@@ -8,7 +8,7 @@ import mbti from "./module/mbti_";
 import social from "./module/social";
 
 const store = new Vuex.Store({
-  // strict: process.env != "production",
+  strict: process.env.NODE_ENV != "production",
   modules: {
     mbti,
     auth,

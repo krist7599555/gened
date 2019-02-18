@@ -15,7 +15,7 @@ export default class MBTI extends Vue {
   loading = true;
   lang: "th" | "en" = "th";
   answer =
-    process.env.NODE_ENV == "production"
+    process.env.NODE_ENV != "production"
       ? {}
       : {
           1: 2,

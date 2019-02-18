@@ -3,7 +3,8 @@ import Router from "vue-router";
 import Home from "@/views/Home/Home.vue";
 import Mbti from "@/views/Mbti/Mbti.vue";
 import Profile from "@/views/Profile/Profile.vue";
-import Course from "@/views/Course.vue";
+import Course from "@/views/Course/Course.vue";
+import NotFound from "@/views/NotFound/NotFound.vue";
 
 Vue.use(Router);
 
@@ -34,7 +35,7 @@ export default new Router({
     {
       path: "*",
       name: "notfound",
-      component: () => import("@/views/NotFound.vue")
+      component: NotFound
     }
   ]
 });

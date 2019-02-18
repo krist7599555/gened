@@ -2,13 +2,15 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "esnext",
-    "outDir": "./dist",
-    "rootDir": "./",
-    "baseUrl": "./src",
+    "outDir": "dist",
+    "rootDir": ".",
+    "baseUrl": "src",
     "sourceMap": true,
     "lib": ["es2017", "es2015.promise", "es2018.promise", "dom"],
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "removeComments": true,
+    "strict": false,
     "paths": {
       "@util/*": ["util/*"],
       "@db/*": ["db/*"],
@@ -18,7 +20,6 @@
       "@regchula/*": ["regchula/*"]
     }
   },
-  "include": ["index.ts"],
-  "exclude": ["node_modules"],
-  "moduleResolution": "node"
+  "include": ["index.ts", "src/**/*", "src/**/*.html"],
+  "exclude": ["node_modules"]
 }
