@@ -3,7 +3,7 @@ import SidebarLogin from "@/components/SidebarLogin.vue";
 import MemoiTextArea from "@/components/MemoiTextArea.vue";
 import SidebarProfile from "@/components/SidebarProfile.vue";
 import * as constant from "@/constant";
-import { Component, Vue, Watch } from "vue-property-decorator";
+import { Component, Vue, Watch, Prop } from "vue-property-decorator";
 import { Getter, Mutation } from "vuex-class";
 
 @Component({
@@ -12,7 +12,14 @@ import { Getter, Mutation } from "vuex-class";
 export default class Sidebar extends Vue {
   GENED = constant.GENED;
   search = { text: "", kind: ["so", "hu", "sci", "in"] };
-  favorite = [
+  @Prop({ type: Boolean, default: true }) showsearch: boolean = true;
+  @Prop({ type: Boolean, default: true }) showlogin: boolean = true;
+  @Prop({ type: Boolean, default: false }) showfavorite: boolean = false;
+  @Prop({ type: Boolean, default: true }) showkind: boolean = true;
+  @Prop({ type: Boolean, default: true }) showtable: boolean = true;
+  @Prop({ type: Boolean, default: false }) showabout: boolean = false;
+  @Prop({ type: Boolean, default: false }) shownote: boolean = false;
+  favoriteList = [
     {
       name: "POP/DEV",
       code: "2110215"

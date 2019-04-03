@@ -2,9 +2,9 @@
   .field
     form(@submit.prevent='submit')
       b-field(ref='username')
-        b-input(placeholder="รหัสนิสิต" v-model='username' required type='tel' maxlength="10" autofocus)
+        b-input(name='username' placeholder="รหัสนิสิต" v-model='username' required type='tel' maxlength="10" autofocus)
       b-field(v-show='showpassword')
-        b-input(placeholder="รหัสผ่าน" v-model='password' required type='password' password-reveal ref='password')
+        b-input(name='password' placeholder="รหัสผ่าน" v-model='password' required type='password' password-reveal ref='password')
       b-field(v-show='showpassword && password' ref='submit')
         .control.is-clearfix.is-flex
           button.button.is-link(:class="inprocess ? 'is-loading' : ''") login
@@ -28,7 +28,8 @@ export default class SidebarLogin extends Vue {
   responseMessage = "";
 
   // @ts-ignore
-  @Action("auth/login") login: any;
+  @Action("auth/login")
+  login: any;
 
   mounted() {
     this.focus("username");

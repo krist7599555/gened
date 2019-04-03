@@ -15,14 +15,15 @@ import LoginPopup from "./LoginPopup.vue";
 // @ts-ignore
 export default class LoginPopupWrapper extends Vue {
   // @ts-ignore
-  @Getter("auth/isLogin") isLogin: boolean;
+  @Getter("auth/isLogin")
+  // @ts-ignore
+  isLogin: boolean;
   // @ts-ignore
   show = false;
   mounted() {
     this.$on("open", () => this.visible(true));
     this.$on("close", () => this.visible(false));
     setInterval(() => {
-      console.log("intervasl");
       if (!this.show && !this.isLogin) {
         this.visible(true);
       }

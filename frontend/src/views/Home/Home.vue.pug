@@ -1,6 +1,7 @@
 
-#home.columns.is-clipped
-  .column.is-1(style='min-width: 340px')
+
+Navbar(): #home.columns.is-clipped.is-marginless
+  .column.is-1.is-paddingless(style='min-width: 340px')
     div#sidebar
       Sidebar
   .column.section.hero.is-fullheight
@@ -11,20 +12,20 @@
           :data="GENEDFILTER || []"
           detailed
           paginated
-          per-page="40"
+          per-page="20"
           detail-key="course"
           icon-pack='fas'
           :striped='true'
           :opened-detailed="openedDetails"
-          @details-open="(row, idx) => $toast.open({type: 'is-info', message: row.course + ' ' + row.courseName.nameENG})"
+          @details-open="(row, idx) => $toast.open({type: 'is-info', message: row.course + ' ' + row.courseName.nameEN})"
           @page-change="$scrollTo('#topOfTable', 500, { offset: -90 })"
           @click='toggleDetail'
         )
 
           template(slot-scope='props')
             //- b-table-column(field='row3', label='ชื่อ' width='200') {{ props.row }}
-            b-table-column(field='row3', label='ชื่อ' width='200'): span(v-html='getCourseName(props.row.courseName)')
-            b-table-column(field='row2', label='หมวด'): span(v-html='getCourseKind(props.row.tags)')
+            b-table-column(field='row3', label='ชื่อ' width='200'): span(v-html='getCourseName(props.row)')
+            b-table-column(field='row2', label='หมวด'): span(v-html='getCourseKind(props.row)')
       
             b-table-column(field='row3', label='รหัส') {{ props.row.course }}
             b-table-column(field='row3', label='เวลา') 

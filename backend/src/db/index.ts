@@ -1,22 +1,20 @@
 import * as schema from "./schema";
 import * as mongoose from "mongoose";
 import * as config from "@config/mongo";
+import { User } from "@/types/Users";
+import { Course } from "@/types/Course";
+import { CourseList } from "@/types/CourseList";
+import { Document } from "mongoose";
 
-mongoose.connection.on("connected", function() {
-  console.log("Mongoose default connection open to");
-});
-
-mongoose.connection.on("error", function(err) {
-  console.log("Mongoose default connection error:", err);
-});
-mongoose.connection.on("disconnected", function() {
-  console.log("Mongoose default connection disconnected");
-});
-
+mongoose.set("useFindAndModify", false);
+mongoose.set("useUpdate", false);
 const client = mongoose.createConnection(config.url, {
   useNewUrlParser: true
 });
 
-export const users = client.model("users", schema.usersSchema);
-export const course = client.model("course", schema.courseDetailSchema);
-export const courselist = client.model("courselist", schema.courseListSchema);
+export const users = client.model<User & Document>("users", schema.UsersSchema);
+export const course = client.model<Course & Document>("course", schema.CourseSchema);
+export const courselist = client.model<CourseList & Document>(
+  "courselist",
+  schema.CourseListSchema
+);

@@ -2,7 +2,8 @@ import axios from "axios";
 import * as _ from "lodash";
 import * as fp from "lodash/fp";
 import * as cheerio from "cheerio";
-import * as format from "./traits.json";
+import * as traitsJSON from "./traits.json";
+import * as detailJSON from "./detail.json";
 import { disconnect } from "cluster";
 
 // https://www.16personalities.com/articles/our-theory
@@ -52,10 +53,13 @@ export default async function submit(obj) {
     en: `https://www.16personalities.com/${type}-personality`
   };
   // return html;
+  console.log(type);
+  console.log(detail);
   return {
     type,
     type5: obj_type5.code,
     link,
-    detail
+    detail,
+    desc: detailJSON[type].desc
   };
 }

@@ -18,6 +18,7 @@ div
 </template>
 
 <script lang="ts">
+// tslint:disable:no-var-requires
 import { Component, Vue } from "vue-property-decorator";
 import { Getter, namespace, Mutation } from "vuex-class";
 import _ from "lodash";
@@ -41,7 +42,6 @@ Array.prototype.toggle = function(val) {
 };
 
 const week = namespace("search/week");
-console.log(week);
 
 @Component({
   name: "week-select",
@@ -50,18 +50,24 @@ console.log(week);
 // @ts-ignore
 export default class WeekSelect extends Vue {
   // @ts-ignore
-  @week.Getter("DAYS") DAYS;
+  @week.Getter("DAYS")
+  DAYS;
   // @ts-ignore
-  @week.Getter("TIMES") TIMES;
+  @week.Getter("TIMES")
+  TIMES;
   // @ts-ignore
-  @week.Getter("TABLE") TABLE;
+  @week.Getter("TABLE")
+  TABLE;
   // @ts-ignore
-  @week.Getter("get") get: (d: string, t: number) => any;
+  @week.Getter("get")
+  get: (d: string, t: number) => any;
 
   // @ts-ignore
-  @Mutation("search/edit") setState: (any) => any;
+  @Mutation("search/edit")
+  setState: (any) => any;
   // @ts-ignore
-  @Mutation("search/week/update") toggleTable: (any) => any;
+  @Mutation("search/week/update")
+  toggleTable: (any) => any;
 
   mounted() {
     this.setState({ week: this.TABLE });

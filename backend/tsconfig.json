@@ -12,10 +12,12 @@
     "removeComments": true,
     "strict": false,
     "paths": {
+      "@/*": ["./*"],
       "@util/*": ["util/*"],
       "@db/*": ["db/*"],
       "@scaping/*": ["scaping/*"],
       "@auth/*": ["auth/*"],
+      "@types/*": ["types/*"],
       "@config/*": ["config/*"],
       "@regchula/*": ["regchula/*"]
     }

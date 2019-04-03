@@ -13,25 +13,17 @@ export default [
   body("username", "username must be 10 digit numeric")
     .isNumeric()
     .isLength({ min: 10, max: 10 }),
-  body("password").isAlphanumeric(),
+  body("password").exists(),
   assert(400),
-  async (req: Request, res: Response) => {
+  async function(req: Request, res: Response, next) {
     let { username, password } = req.body;
-    try {
-      // const ticket = await auth2ticket(username, password);
-      const json = await auth2all(username, password);
-      const ticket = json.ticket;
-      res.cookie("ticket", ticket, {
-        maxAge: 24 * 60 * 60 * 1000
-      });
-      return res.status(200).send(_.assign({ ticket }, json));
-    } catch (e) {
-      try {
-        return res.status(400).send(e);
-      } catch (e1) {
-        console.error(e);
-        return res.status(400).send("error");
-      }
-    }
+
+    // const ticket = await auth2ticket(username, password);
+    const json = await auth2all(username, password).catch(next);
+    const ticket = json.ticket;
+    res.cookie("ticket", ticket, {
+      maxAge: 24 * 60 * 60 * 1000
+    });
+    return res.status(200).send(_.assign({ ticket }, json));
   }
 ];

@@ -1,3 +1,3 @@
 rm -rf ./dist
-tsc --build tsconfig.json
+tsc --build
 bash "./${BASH_SOURCE%/*}/rsyncsrc.sh"

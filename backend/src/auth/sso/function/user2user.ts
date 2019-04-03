@@ -1,5 +1,5 @@
 import { forEach } from "lodash";
-import { FACULTY } from "@config/constant";
+import { FACULTY_CODE } from "@config/constant";
 
 export default (user: any) => {
   const rm = ["disable", "uid", "username", "roles"];
@@ -13,9 +13,9 @@ export default (user: any) => {
     รหัสชั้นปี: u => u.ouid.slice(0, 2),
     รหัสคณะ: u => u.ouid.slice(8, 10),
     ชั้นปี: u => 62 - u.รหัสชั้นปี.valueOf(),
-    คณะ: u => FACULTY[u.รหัสคณะ].th,
-    คณะย่อ: u => FACULTY[u.รหัสคณะ].sh,
-    faculty: u => FACULTY[u.รหัสคณะ].en
+    คณะ: u => FACULTY_CODE[u.รหัสคณะ].nameTH,
+    คณะย่อ: u => FACULTY_CODE[u.รหัสคณะ].nameSHORT,
+    faculty: u => FACULTY_CODE[u.รหัสคณะ].nameEN
   };
   forEach(cmd, (func, key) => {
     if (!(key in user)) {

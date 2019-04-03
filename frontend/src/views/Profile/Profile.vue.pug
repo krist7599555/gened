@@ -3,37 +3,27 @@
     div#sidebar
       Sidebar
   .column.section.hero.is-fullheight(align='center')
-    .box(align='center' style='max-width: 650px')
+    .box(v-if='user' align='center' style='max-width: 650px')
       div
-        div.is-flex(align='center' style='margin: 0 auto; justify-content: center;')
+        div.is-flex(align='center' style='margin: 30px auto; justify-content: center;')
           div
-            figure.image.is-128x128
-              img.is-rounded(src="https://image.flaticon.com/icons/svg/145/145867.svg")
+            figure.image.is-128x128(style='margin-right: 30px')
+              img.is-rounded(:src="user.picture || 'https://image.flaticon.com/icons/svg/145/145867.svg'" style='box-shadow: 0px 0px 20px 7px #ccc8;')
+              div#profile-icon__wrapper
+                span(v-if='user.gender == "female"' style='color: #e481bd')
+                  b-icon(pack='fas' icon='venus')
+                span(v-else style='color: #6077e6')
+                  b-icon(pack='fas' icon='mars')
           div.is-flex(style='align-items: center;')
             div
-              h1 {{user.displayname}}
-              p {{user.faculty}} # {{user.ชั้นปี}}
+              h1.is-size-3 {{user.displayname}}
+              p.is-size-4 
+                span(style='margin-bottom: 10px') {{user.faculty}} # {{user.year}}
+        hr
+        br
+        div(v-if='user.cr60')
+          ProfileChart(:value='formatCR60 || []')
+        hr
         div
-          div
-            // .is-flex(style='align-items: center;' align='center')
-            figure
-              ECharts(
-                :options='bar'
-                :init-options='initOptions'
-                @click='focus($event.name)'
-                ref="bar"
-                theme="ovilia-green"
-                autoresize
-              )
-
-          //- div.is-flex(style='align-items: center; justify-content: center;' align='center')
-          //-   table.table
-          //-     tbody
-          //-       tr(v-for='{no, title, grade} in focusSubject')
-          //-         td {{grade}}
-          //-         td {{no}}
-          //-         td {{title}}
-      hr
-      div
-        //- h1 {{gradecounter}}
-        h4(style='word-wrap: pre') {{user}}
+          ProfileMbti(:value='user.mbti')
+        br

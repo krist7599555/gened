@@ -1,6 +1,7 @@
 <template lang="pug">
 div(style='display: flex; justify-content: center'): .content
-  template(v-if='src')
+  template(v-if='message') {{message}}
+  template(v-else-if='src')
     h3
       router-link(:to="'/course/' + src.courseName.id")
         | {{src.courseName.nameSHORT}} :  {{src.courseName.id}}
@@ -43,16 +44,16 @@ div(style='display: flex; justify-content: center'): .content
     h5 แหล่งข้อมูลอื่น
     ul
       li
-        a(:href='"http://www.gened.chula.ac.th/course/" + src.course') gened.chula.ac.th
+        a(:href='`http://www.gened.chula.ac.th/course/${src.course}`') gened.chula.ac.th
       li  
-        a(:href='"http://www.google.com/search?q=gened+" + src.course') google.com
+        a(:href="`http://www.google.com/search?q=gened+${src.course}`") google.com
     br
     h3 comments/reviews
     hr
     Chat
       Chat
 
-  div(v-show='!src')
+  div(v-show='!src && !message')
     i.fas.fa-circle-notch.fa-spin
 </template>
 
@@ -78,10 +79,14 @@ export default class CourseCard extends Vue {
   course!: string;
 
   src: any = null;
+  message = "";
   mounted() {
     this.$store.dispatch("search/getCourse", this.course).then(res => {
+      console.log(res);
       this.src = res;
-      console.log("success", res);
+      if (res == null) {
+        this.message = `Not Found Course ${this.course}`;
+      }
       this.$forceUpdate();
     });
   }

@@ -4,7 +4,7 @@ import * as moment from "moment";
 
 export default async function pinfo(html: string) {
   if (html.indexOf("ท่านไม่มีสิทธิทำรายการนี้") != -1) {
-    return { error: true, message: "ท่านไม่มีสิทธิทำรายการนี้" };
+    return null;
   }
   const tabs = _.compact(
     _.map(cheerio("#Table35, #Table36, #Table37, #Table38, #Table39", html), tab =>
@@ -18,13 +18,17 @@ export default async function pinfo(html: string) {
             ).contents(),
             td => td.data.trim().replace(/\s\s+/, " ")
           );
-          if (line.length == 3) {
-            for (let [a, b] of [["เลขที่พาสปอร์ต", "E-Mail Address"], ["หมู่บ้าน", "ถนน"]]) {
-              if (line[0] == a && line[1] == b) {
-                line.splice(1, 0, "");
-              }
+
+          for (let [a, b] of [
+            ["เลขที่พาสปอร์ต", "E-Mail Address"],
+            ["หมู่บ้าน", "ถนน"],
+            ["ตรอก/ซอย", "อาคาร"]
+          ]) {
+            if (line[0] == a && line[1] == b) {
+              line.splice(1, 0, "");
             }
           }
+
           if (line.length % 2 == 1) line.push("");
           return _.fromPairs(_.chunk(line, 2));
         })

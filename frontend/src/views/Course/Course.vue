@@ -65,6 +65,7 @@ export default class Home extends Vue {
 }
 .course {
   background-color: aliceblue;
+  min-height: 100vh;
   @media screen and (min-width: 700px) {
     padding: 2rem;
     .container {

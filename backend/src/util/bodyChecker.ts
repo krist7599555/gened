@@ -2,7 +2,7 @@ import { check, param, cookie, query } from "express-validator/check";
 import { validationResult } from "express-validator/check";
 import { Request, Response, NextFunction } from "express";
 
-export function assert(code: number = 400) {
+export function expressValidatorAssert(code: number = 400) {
   return function(req: Request, res: Response, next: NextFunction) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

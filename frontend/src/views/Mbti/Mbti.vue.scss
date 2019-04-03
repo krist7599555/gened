@@ -26,9 +26,13 @@ $poscolor: #4c9070;
   margin-top: -1px;
   max-width: 600px;
   padding: 30px 30px;
+  @media screen and (max-width: 968px) {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
   @media screen and (max-width: 768px) {
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: 10px;
+    padding-right: 10px;
     border-left-width: 0;
     border-right-width: 0;
   }

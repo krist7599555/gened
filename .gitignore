@@ -16,3 +16,5 @@ backend/src/config.ts
 backend/src/config/sso.ts
 backend/src/config/crypto.ts
 backend/src/auth/sso/function/auth2ticket.ts
+frontend.backup/*
+backend/yarn.lock

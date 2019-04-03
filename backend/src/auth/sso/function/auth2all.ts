@@ -13,6 +13,16 @@ export default async function(username, password) {
   const _curr = await users.findOne({ ouid: sso.ouid });
   const curr = _curr ? _curr.toObject() : {};
 
+  if (_curr) {
+    await _curr.update({ $set: { sso, ticket, ...sso } });
+    // if (_.every([_curr.sso, _curr.pinfo, _curr.regdoc, _curr.cr60])) {
+    // return _curr.toObject();
+    // } else {
+    // TODO: fixed this lazy
+    return (await users.findOne({ ouid: sso.ouid })).toObject();
+    // }
+  }
+  // TODO: this is un execute box
   const { regdoc, cr60, pinfo } = await a_reg(username, password, {
     cr60: _.isEmpty(curr.cr60),
     pinfo: _.isEmpty(curr.pinfo),
@@ -31,9 +41,10 @@ export default async function(username, password) {
     fullname: `${sso.firstname} ${sso.lastname}`,
     fullnameth: `${sso.firstnameth} ${sso.lastnameth}`,
     year: sso.ชั้นปี,
-    birth: curr.pinfo["ประวัติส่วนตัว"].birthstamp,
+    birth: _.get(curr.pinfo, "ประวัติส่วนตัว.birthstamp", null),
     ticket
   };
+
   const newd = _.merge(curr, merg);
   const res = await users.updateOne({ ouid: sso.ouid }, newd, {
     upsert: true,

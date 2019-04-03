@@ -1,8 +1,12 @@
-/* eslint-disable no-console */
+/* eslint-disable */
 
-import { register } from "register-service-worker";
+import { register, unregister } from "register-service-worker";
+import store from "./store/store";
+
+export { unregister };
 
 if (process.env.NODE_ENV === "production") {
+  console.log("Register service worker");
   register(`${process.env.BASE_URL}service-worker.js`, {
     ready() {
       console.log(
@@ -15,11 +19,10 @@ if (process.env.NODE_ENV === "production") {
     },
     updated() {
       console.log("New content is available; please refresh.");
+      store.commit("cache/setUpdated", true);
     },
     offline() {
-      console.log(
-        "No internet connection found. App is running in offline mode."
-      );
+      console.log("No internet connection found. App is running in offline mode.");
     },
     error(error) {
       console.error("Error during service worker registration:", error);

@@ -17,7 +17,7 @@
             span.label.is-inline(style='margin-top: 0') MBTI test
     li
       a
-        button.button.is-link(@click='logout') 
+        button.button.is-primary(@click='logout') 
           span logout
           b-icon(icon='sign-out-alt' pack='fas')
     li

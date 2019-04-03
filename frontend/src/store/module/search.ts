@@ -4,7 +4,6 @@ import week from "./week";
 import _ from "lodash";
 import { api } from "@/config/index";
 
-import { genedData, genedSection } from "@/views/type";
 import { GENED as genedConvert } from "@/constant/index";
 
 export default {
@@ -16,7 +15,7 @@ export default {
     GENED: null,
     search: {
       text: "",
-      kind: [],
+      kind: [], // ["so", "hu", "sci", "in"]
       week: null,
       showFullCourse: true,
       showUnsureGened: true
@@ -33,13 +32,14 @@ export default {
       return (
         state.GENED &&
         _.chain(state.GENED)
-          .filter(({ tags }) => {
-            return _.includes(state.search.kind, tags.gened.english);
+          .filter(o => {
+            // console.log(state.search.kind);
+            return _.includes(state.search.kind, o.gened.nameEN);
           })
-          .filter(row => {
-            const data = JSON.stringify(row).toLowerCase();
+          .filter(o => {
+            const data = JSON.stringify(o).toLowerCase();
             const search = state.search.text.toLowerCase();
-            return data.includes(search);
+            return _.every(_.split(search), tok => data.includes(tok));
           })
           .reduce((res: any[], obj) => {
             const validsection = _.reduce(
@@ -73,13 +73,13 @@ export default {
           .value()
       );
     },
-    filterSureGened: (state, getters) => (section: genedSection) => {
+    filterSureGened: (state, getters) => (section: any) => {
       return section.หมายเหตุ.indexOf("GENED") != -1;
     },
-    filterAvailSeatSection: (state, getters) => (section: genedSection) => {
+    filterAvailSeatSection: (state, getters) => (section: any) => {
       return Number(section.ลงทะเบียน) < Number(section.ที่นั้งทั้งหมด);
     },
-    filterByWeekSection: (state, getters) => (section: genedSection[]) => {
+    filterByWeekSection: (state, getters) => (section: any[]) => {
       const timeformat = /^.+:.+$/;
       return _.chain(section)
         .map(({ วันเรียน: d, เวลาเริ่ม: s, เวลาจบ: t }) => {
@@ -109,17 +109,21 @@ export default {
   },
   actions: {
     async reloadGened(store, force) {
-      return axios
-        .get(`${api}/scape/course?q=1+2+3+4+5${force ? "&force=true" : ""}`)
-        .then(res => res.data)
-        .then(res => res.list)
-        .then(gened => {
-          store.commit("setGened", gened);
-          return gened;
-        });
+      return (
+        axios
+          .get(`${api}/scape/gened/all${force ? "&force=true" : ""}`)
+          .then(res => res.data)
+          // .then(res => res.list)
+          .then(gened => {
+            store.commit("setGened", gened);
+            return gened;
+          })
+      );
     },
     async getCourse(_, code) {
-      return axios.get(`${api}/scape/course?q=${code}`).then(res => res.data.list[0]);
+      const url = `${api}/scape/course/${code}`;
+      const res = await axios.get(url).then(res => res.data);
+      return res != null ? res : await axios.get(url + "?force=true").then(res => res.data);
     }
   }
 };

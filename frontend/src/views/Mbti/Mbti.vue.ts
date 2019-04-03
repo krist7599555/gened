@@ -15,10 +15,9 @@ export default class MBTI extends Vue {
   loading = true;
   lang: "th" | "en" = "th";
   answer =
-    process.env.NODE_ENV != "production"
+    process.env.NODE_ENV == "production"
       ? {}
       : {
-          1: 2,
           2: 1,
           3: 0,
           4: 3,
@@ -105,13 +104,11 @@ export default class MBTI extends Vue {
       const res = await this.$store.dispatch("mbti/submit", this.answer);
       window.location = res.link[this.lang];
     } catch (e) {
-      console.log(e);
       this.$toast.open({
         type: "is-danger",
         message: e,
         duration: 5000
       });
-      console.error(e);
     }
     this.loading = false;
   }

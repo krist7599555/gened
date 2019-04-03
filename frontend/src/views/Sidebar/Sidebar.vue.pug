@@ -1,46 +1,55 @@
 // https://vuejsdevelopers.com/2017/06/11/vue-js-extending-components/
 div
   aside.menu.section
-    div(align='center')
-      h1.title GENED.ML
+    router-link(to='/')
+      div(align='center')
+        h1.title GENED.ML
     br
-    b-input(v-model='search.text' placeholder="Search..." type="search" icon="search" rounded)
-    br
+    template(v-if='showsearch')
+      b-input(name='search' v-model='search.text' placeholder="Search..." type="search" icon="search" rounded aria-labelledby='sidebar_search_input')
+      br
 
-    template(v-if='isLogin')
-      p.menu-label profile
-      SidebarProfile(v-if='isLogin')
-    template(v-else)
-      p.menu-label เข้าสู่ระบบ
-      SidebarLogin
+    template(v-if='showlogin')
+      template(v-if='isLogin')
+        p.menu-label profile
+        SidebarProfile(v-if='isLogin')
+      template(v-else)
+        p.menu-label เข้าสู่ระบบ
+        SidebarLogin
 
-    p.menu-label ชื่นชอบ
-    ul.menu-list 
-      li(v-for='{name, code} in favorite')
-        router-link.is-flex(:to='"/course/" + code')
-          //- b-icon.star(icon='star' pack='fas')
-          b-icon.thumbtack(icon='thumbtack' pack='fas')
-          span(style="padding-left: 0.5rem; padding-top: 0.1rem;") {{name}} ({{code}})
-    p.menu-label หมวด
-    ul.menu-list
-      li
-        a(v-for='i in 5')
-          b-checkbox(
-            type='is-info'
-            v-model='search.kind' 
-            :native-value='GENED[i].en' 
-          ) {{ GENED[i].sht }} ({{ GENED[i].en.toUpperCase() }})
-    p.menu-label ตาราง
-    div#week-select-wrapper
-      WeekSelect
-    p.menu-label แสดงผล
-      .field: b-switch(type='is-success' :value='getState.showFullCourse' @input='setState({"showFullCourse": $event})') รายวิชาที่เต็มแล้ว
-      .field: b-switch(type='is-success' :value='getState.showUnsureGened' @input='setState({"showUnsureGened": $event})') รายวิชาที่ไม่ขึ้นหมายเหตุ GENED
-    p.menu-label เกี่ยวกับ
-    ul.menu-list
-      li
-        a ผู้สร้าง
-      li
-        a รายงานปัญหา
-    p.menu-label note
-    MemoiTextArea(key='notes')
+    template(v-if='showfavorite')
+      p.menu-label ชื่นชอบ
+      ul.menu-list 
+        li(v-for='{name, code} in favoriteList')
+          router-link.is-flex(:to='"/course/" + code')
+            //- b-icon.star(icon='star' pack='fas')
+            b-icon.thumbtack(icon='thumbtack' pack='fas')
+            span(style="padding-left: 0.5rem; padding-top: 0.1rem;") {{name}} ({{code}})
+
+    template(v-if='showkind')
+      p.menu-label หมวด
+      ul.menu-list
+        li
+          a(v-for='i in 4')
+            b-checkbox(
+              type='is-info'
+              v-model='search.kind' 
+              :native-value='GENED[i].en' 
+            ) {{ GENED[i].sht }} ({{ GENED[i].en.toUpperCase() }})
+    template(v-if='showtable')
+      p.menu-label ตาราง
+      div#week-select-wrapper
+        WeekSelect
+      p.menu-label แสดงผล
+        .field: b-switch(type='is-success' :value='getState.showFullCourse' @input='setState({"showFullCourse": $event})') รายวิชาที่เต็มแล้ว
+        .field: b-switch(type='is-success' :value='getState.showUnsureGened' @input='setState({"showUnsureGened": $event})') รายวิชาที่ไม่ขึ้นหมายเหตุ GENED
+    template(v-if='showabout')
+      p.menu-label เกี่ยวกับ
+      ul.menu-list
+        li
+          a ผู้สร้าง
+        li
+          a รายงานปัญหา
+    template(v-if='shownote')
+      p.menu-label note
+      MemoiTextArea(key='notes')

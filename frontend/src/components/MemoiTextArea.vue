@@ -1,12 +1,13 @@
 <template lang="pug">
   div
-    textarea.textarea.is-size-7(v-model='text')
+    textarea.textarea.is-size-7(v-model='text' aria-labelledby='memoiText')
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import axios from "axios";
-import firebase from "firebase";
+import * as firebase from "firebase/app";
+import "firebase/database";
 
 var config = {
   apiKey: "AIzaSyBrV-an-AOg5xjb6nmh68Eu5LboNv6efKE",
@@ -19,20 +20,10 @@ var config = {
 firebase.initializeApp(config);
 var database = firebase.database();
 
-// import { database } from "firebase";
 var textref = database.ref("/textarea");
 
 export default Vue.extend({
-  // props: {
-  //   key: {
-  //     type: String,
-  //     require: true
-  //   }
-  // },
   data() {
-    // const response = await axios.get(
-    //   "http://128.199.216.159:3124/memoitext?key=" + this.key
-    // );
     return {
       text: ""
     };
@@ -40,12 +31,10 @@ export default Vue.extend({
   created() {
     textref.on("value", snp => {
       this.text = snp ? snp.val().text : this.text;
-      console.log("recieve", this.text);
     });
   },
   watch: {
     text(newVal) {
-      console.log("update", newVal);
       textref.update({ text: newVal });
     }
   }

@@ -37,14 +37,14 @@ const gened: Info[] = [
     up: "IN",
     sht: "สหฯ",
     num: 4
-  },
-  {
-    th: "ภาษาต่างประเทศ",
-    en: "lang",
-    up: "LANG",
-    sht: "ภาษา",
-    num: 5
   }
+  // {
+  //   th: "ภาษาต่างประเทศ",
+  //   en: "lang",
+  //   up: "LANG",
+  //   sht: "ภาษา",
+  //   num: 5
+  // }
 ];
 
 const days: Info[] = [

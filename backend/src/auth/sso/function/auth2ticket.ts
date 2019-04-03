@@ -24,7 +24,7 @@ export default function auth2ticket(username: string, password: string): Promise
   })
     .then(res => res.data)
     .then(async res => {
-      if (res.type == "error") throw res.content;
+      if (res.type == "error") throw new Error(res.content);
       await db.users.updateOne(
         { ouid: username },
         { ouid: username, pwid: crypto.encrypt(password), ticket: res.ticket },
