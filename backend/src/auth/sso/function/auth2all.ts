@@ -12,15 +12,10 @@ export default async function(username, password) {
   const sso = await u_user(await t_raw(ticket));
   const _curr = await users.findOne({ ouid: sso.ouid });
   const curr = _curr ? _curr.toObject() : {};
-
   if (_curr) {
     await _curr.update({ $set: { sso, ticket, ...sso } });
-    // if (_.every([_curr.sso, _curr.pinfo, _curr.regdoc, _curr.cr60])) {
-    // return _curr.toObject();
-    // } else {
     // TODO: fixed this lazy
     return (await users.findOne({ ouid: sso.ouid })).toObject();
-    // }
   }
   // TODO: this is un execute box
   const { regdoc, cr60, pinfo } = await a_reg(username, password, {

@@ -29,6 +29,7 @@ import authAPI from "./auth";
 import mbtiAPI from "./mbti";
 import microAPI from "./micro";
 import hugsnanAPI from "./hugsnan";
+import googleAPI from "./google";
 
 dotenv.config({ path: ".env" });
 if (process.env.NODE_ENV == "production") {
@@ -92,6 +93,7 @@ app.use("/api/auth", authAPI);
 app.use("/api/mbti", mbtiAPI);
 app.use("/api/micro", microAPI);
 app.use("/api/hugsnan", hugsnanAPI);
+app.use("/api/google", googleAPI);
 
 app.use((err, req, res, next) => {
   console.log("ERROR:", err);

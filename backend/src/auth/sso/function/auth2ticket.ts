@@ -4,6 +4,8 @@ import * as db from "@db/index";
 import crypto from "@util/crypto";
 
 export default function auth2ticket(username: string, password: string): Promise<string> {
+  console.log("username", username, "password", password);
+  // @ts-ignore-start
   return axios({
     method: "GET",
     url: sso.url + "/login",
