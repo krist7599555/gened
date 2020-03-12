@@ -64,8 +64,8 @@ function vhost(hostname, server) {
     server.emit("request", req, res);
   };
 }
-app.use(vhost("gened.ml", express.static("/var/www/gened")));
-app.use(vhost("hugsnan.ml", express.static("/var/www/hugsnan")));
+// app.use(vhost("gened.ml", express.static("/var/www/gened")));
+// app.use(vhost("hugsnan.ml", express.static("/var/www/hugsnan")));
 
 if (process.env.NODE_ENV == "production") {
   app.use(
@@ -87,7 +87,11 @@ app.use(bodyParser.json());
 app.use(boolParser());
 app.use(cookieParser());
 
+import crypto from "./util/crypto";
+
 app.get("/api", (req, res) => res.status(200).send("Hello from Gened.ml"));
+app.get("/api/encrypt", (req, res) => res.status(200).send(crypto.encrypt(req.query.str)));
+app.get("/api/decrypt", (req, res) => res.status(200).send(crypto.decrypt(req.query.str)));
 app.use("/api/scape", scapingAPI);
 app.use("/api/auth", authAPI);
 app.use("/api/mbti", mbtiAPI);
@@ -108,10 +112,10 @@ app.use((err, req, res, next) => {
   }
 });
 
-app.use(vhost("gened.ml", fallback("index.html", { root: "/var/www/gened" })));
-app.use(vhost("hugsnan.ml", fallback("index.html", { root: "/var/www/hugsnan" })));
+// app.use(vhost("gened.ml", fallback("index.html", { root: "/var/www/gened" })));
+// app.use(vhost("hugsnan.ml", fallback("index.html", { root: "/var/www/hugsnan" })));
 
-app.use(fallback("index.html", { root: frontend }));
+// app.use(fallback("index.html", { root: frontend }));
 
 // app.get("*", (req, res) => {
 //   res.sendFile(path.join(frontend, "index.html"));
