@@ -25,7 +25,7 @@
     "@types/tesseract.js": "^0.0.2",
     "@types/utf8": "^2.1.6",
     "ajax-request": "^1.2.3",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "axios-curlirize": "^1.0.0",
     "axios-timing": "^1.0.2",
     "chalk": "^2.4.2",
